@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pipeline Progress — NanobodyDesigner</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080a0f;--surface:#0f1218;--surface2:#161b24;--surface3:#1c2230;--border:#1e2535;--border-glow:#2a3548;--text:#e8eaf0;--dim:#6b7a94;--muted:#3d4b63;--accent:#f97316;--accent-glow:rgba(249,115,22,.15);--cyan:#22d3ee;--green:#34d399;--purple:#a78bfa;--pink:#f472b6;--red:#f87171;--yellow:#fbbf24}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;line-height:1.5;min-height:100vh;position:relative}
+
+body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 80% 60% at 10% 0%,rgba(249,115,22,.04) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 90% 10%,rgba(34,211,238,.03) 0%,transparent 50%),radial-gradient(ellipse 70% 40% at 50% 100%,rgba(167,139,250,.03) 0%,transparent 50%);pointer-events:none;z-index:0}
+
+body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none;z-index:0}
+
+.header{padding:36px 40px 20px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(15,18,24,.9),var(--bg));position:relative;z-index:1}
+.header h1{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--dim)}
+.header h1 .run-id{color:var(--accent)}
+.header-meta{display:flex;flex-wrap:wrap;gap:28px;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--dim);align-items:center}
+.header-meta .val{color:var(--text);font-weight:600}
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.live-dot.live{background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s ease-in-out infinite}
+.live-dot.stale{background:var(--red);box-shadow:0 0 6px var(--red)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+.overall-bar{margin-top:16px;position:relative}
+.overall-bar .track{height:6px;background:var(--surface3);border-radius:3px;overflow:hidden}
+.overall-bar .fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--yellow));transition:width .8s ease}
+.overall-bar .pct{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.overall-bar .pct .status-text{font-size:12px;color:var(--dim);font-weight:400;margin-left:12px;text-transform:uppercase;letter-spacing:.5px}
+
+.nav{position:sticky;top:0;z-index:100;background:rgba(8,10,15,.94);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 40px;display:flex;gap:0;overflow-x:auto}
+.nav a{display:block;padding:11px 18px;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:500;color:var(--dim);text-decoration:none;text-transform:uppercase;letter-spacing:.7px;border-bottom:2px solid transparent;white-space:nowrap;transition:all .25s ease;cursor:pointer}
+.nav a:hover{color:var(--text)}
+.nav a.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+.content{padding:28px 40px 80px;position:relative;z-index:1}
+.section{margin-bottom:48px;display:none}.section.active{display:block;animation:fadeIn .3s ease-out}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.stitle{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:9px;letter-spacing:-.3px;color:var(--dim)}
+.stitle::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent);margin-left:12px}
+
+/* ---- Pipeline flow ---- */
+.flow-container{padding:20px 0;overflow-x:auto}
+.flow-svg text{font-family:'JetBrains Mono',monospace}
+
+/* ---- Stage cards ---- */
+.stage-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative;overflow:hidden;transition:transform .25s ease,box-shadow .25s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.3);border-color:var(--border-glow)}
+.card.s-done{border-top:2px solid var(--green)}
+.card.s-running{border-top:2px solid var(--cyan)}
+.card.s-pending{border-top:2px solid var(--muted)}
+.card.s-failed{border-top:2px solid var(--red)}
+
+.card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.card-head h3{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text)}
+.card-head .badge{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;font-family:'JetBrains Mono',monospace}
+.badge-done{background:rgba(52,211,153,.12);color:var(--green);border:1px solid rgba(52,211,153,.2)}
+.badge-running{background:rgba(34,211,238,.12);color:var(--cyan);border:1px solid rgba(34,211,238,.2);animation:pulse 2s ease-in-out infinite}
+.badge-pending{background:rgba(107,122,148,.1);color:var(--dim);border:1px solid rgba(107,122,148,.15)}
+.badge-failed{background:rgba(248,113,113,.12);color:var(--red);border:1px solid rgba(248,113,113,.2)}
+
+.card-bar{height:4px;background:var(--surface3);border-radius:2px;overflow:hidden;margin-bottom:10px}
+.card-bar .fill{height:100%;border-radius:2px;transition:width .8s ease}
+.s-done .card-bar .fill{background:var(--green)}
+.s-running .card-bar .fill{background:linear-gradient(90deg,var(--cyan),var(--accent))}
+.s-pending .card-bar .fill{background:var(--muted)}
+
+.card-stats{display:flex;flex-wrap:wrap;gap:16px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);margin-bottom:8px}
+.card-stats .val{color:var(--text);font-weight:600}
+
+.task-table{width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:10px;margin-top:10px}
+.task-table th{text-align:left;color:var(--dim);font-weight:500;padding:4px 8px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.5px;font-size:9px}
+.task-table td{padding:3px 8px;border-bottom:1px solid rgba(30,37,53,.5);color:var(--text)}
+.task-table .st-done{color:var(--green)}.task-table .st-running{color:var(--cyan)}.task-table .st-failed{color:var(--red)}
+.task-toggle{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);cursor:pointer;padding:4px 0;user-select:none;transition:color .2s}
+.task-toggle:hover{color:var(--accent)}
+.task-list{max-height:200px;overflow-y:auto;margin-top:4px}
+.task-list.collapsed{display:none}
+
+/* ---- Gantt ---- */
+.gantt-container{overflow-x:auto;padding:10px 0}
+.gantt-svg text{font-family:'JetBrains Mono',monospace}
+
+/* Custom scrollbars */
+::-webkit-scrollbar{width:7px;height:7px}
+::-webkit-scrollbar-track{background:rgba(15,18,24,.6);border-radius:4px}
+::-webkit-scrollbar-thumb{background:rgba(249,115,22,.18);border-radius:4px;border:1px solid rgba(249,115,22,.08)}
+::-webkit-scrollbar-thumb:hover{background:rgba(249,115,22,.3)}
+::-webkit-scrollbar-corner{background:transparent}
+*{scrollbar-width:thin;scrollbar-color:rgba(249,115,22,.18) rgba(15,18,24,.6)}
+
+.tip{position:fixed;pointer-events:none;background:rgba(15,18,24,.96);border:1px solid var(--border-glow);border-radius:8px;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text);z-index:1000;opacity:0;transition:opacity .12s;box-shadow:0 8px 32px rgba(0,0,0,.6);max-width:260px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="header" id="hdr"></div>
+<nav class="nav">
+<a data-tab="sec-flow" class="active">Pipeline</a>
+<a data-tab="sec-stages">Stages</a>
+<a data-tab="sec-gantt">Timeline</a>
+</nav>
+<div class="content" id="C"></div>
+<div class="tip" id="TT"></div>
+
+<script>
+/* Data injected by publish_dashboard.py — fallback to fetch for dev */
+const P={"run_id":"bcma_test_8","run_root":"/mnt/beegfs/valkov/rfantibody/unified/bcma_test_8","updated":"2026-02-28T17:52:45.387788+00:00","config":{"total_designs":10000,"target_pdb":"bcma","gpu_mode":"streaming"},"stages":[{"name":"gpu_stages","display_name":"rfantibody","status":"pending","job_id":null,"done":0,"total":0,"pct":0.0,"n_tasks":0,"n_running":0,"wall_seconds":null,"eta_seconds":null,"started":null,"ended":null,"tasks":[]},{"name":"rosetta","display_name":"rosetta","status":"pending","job_id":null,"done":0,"total":0,"pct":0.0,"n_tasks":0,"n_running":0,"wall_seconds":null,"eta_seconds":null,"started":null,"ended":null,"tasks":[]},{"name":"qv2pdb","display_name":"qv2pdb","status":"pending","job_id":null,"done":0,"total":0,"pct":0.0,"n_tasks":0,"n_running":0,"wall_seconds":null,"eta_seconds":null,"started":null,"ended":null,"tasks":[]},{"name":"qv_scores","display_name":"qv_scores","status":"pending","job_id":null,"done":0,"total":0,"pct":0.0,"n_tasks":0,"n_running":0,"wall_seconds":null,"eta_seconds":null,"started":null,"ended":null,"tasks":[]},{"name":"pisa","display_name":"pisa","status":"pending","job_id":null,"done":0,"total":0,"pct":0.0,"n_tasks":0,"n_running":0,"wall_seconds":null,"eta_seconds":null,"started":null,"ended":null,"tasks":[]},{"name":"prodigy","display_name":"prodigy","status":"pending","job_id":null,"done":0,"total":0,"pct":0.0,"n_tasks":0,"n_running":0,"wall_seconds":null,"eta_seconds":null,"started":null,"ended":null,"tasks":[]},{"name":"deeprank_a","display_name":"deeprank_a","status":"pending","job_id":null,"done":0,"total":0,"pct":0.0,"n_tasks":0,"n_running":0,"wall_seconds":null,"eta_seconds":null,"started":null,"ended":null,"tasks":[]},{"name":"deeprank_b","display_name":"deeprank_b","status":"pending","job_id":null,"done":0,"total":0,"pct":0.0,"n_tasks":0,"n_running":0,"wall_seconds":null,"eta_seconds":null,"started":null,"ended":null,"tasks":[]},{"name":"combine_scores","display_name":"combine_scores","status":"pending","job_id":null,"done":0,"total":0,"pct":0.0,"n_tasks":0,"n_running":0,"wall_seconds":null,"eta_seconds":null,"started":null,"ended":null,"tasks":[]},{"name":"epitope","display_name":"epitope","status":"pending","job_id":null,"done":0,"total":0,"pct":0.0,"n_tasks":0,"n_running":0,"wall_seconds":null,"eta_seconds":null,"started":null,"ended":null,"tasks":[]},{"name":"plots","display_name":"plots","status":"pending","job_id":null,"done":0,"total":0,"pct":0.0,"n_tasks":0,"n_running":0,"wall_seconds":null,"eta_seconds":null,"started":null,"ended":null,"tasks":[]}],"pipeline_status":"pending","pipeline_pct":0.0};
+(async function(){
+"use strict";
+let D;
+if(typeof P!=="undefined"){D=P}else{
+  try{const r=await fetch("progress.json");D=await r.json()}
+  catch(e){document.getElementById("C").innerHTML="<p style='color:var(--red);padding:40px'>Failed to load progress.json</p>";return}
+}
+
+/* ---- helpers ---- */
+const qs=s=>document.querySelector(s);
+const el=(t,a,c)=>{const e=document.createElement(t);if(a)Object.entries(a).forEach(([k,v])=>{if(k==="class")e.className=v;else if(k==="html")e.innerHTML=v;else if(k==="text")e.textContent=v;else e.setAttribute(k,v)});if(c)c.forEach(ch=>e.appendChild(ch));return e};
+const fmt_time=s=>{if(s==null||s<0)return"--";const h=Math.floor(s/3600),m=Math.floor((s%3600)/60);return h>0?`${h}h ${String(m).padStart(2,"0")}m`:`${m}m`};
+const fmt_eta=s=>s==null?"--":`~${fmt_time(s)}`;
+const fmt_num=n=>n==null?"--":n.toLocaleString();
+const ago=iso=>{if(!iso)return"--";const d=Math.floor((Date.now()-new Date(iso).getTime())/1000);if(d<60)return`${d}s ago`;if(d<3600)return`${Math.floor(d/60)}m ago`;return`${Math.floor(d/3600)}h ago`};
+
+const TT=qs("#TT");
+function showTip(e,html){TT.innerHTML=html;TT.style.opacity="1";TT.style.left=Math.min(e.clientX+12,window.innerWidth-280)+"px";TT.style.top=(e.clientY+12)+"px"}
+function hideTip(){TT.style.opacity="0"}
+
+/* ---- status colors ---- */
+const SC={done:"var(--green)",running:"var(--cyan)",pending:"var(--muted)",failed:"var(--red)"};
+const SCfill={done:"#34d399",running:"#22d3ee",pending:"#3d4b63",failed:"#f87171"};
+const SCbg={done:"rgba(52,211,153,.12)",running:"rgba(34,211,238,.12)",pending:"rgba(61,75,99,.08)",failed:"rgba(248,113,113,.12)"};
+
+/* ---- header ---- */
+const hdr=qs("#hdr");
+const updatedAgo=ago(D.updated);
+const isStale=(Date.now()-new Date(D.updated).getTime())>120000;
+hdr.innerHTML=`
+  <h1>Pipeline Progress <span class="run-id">${D.run_id}</span></h1>
+  <div class="header-meta">
+    <div>TARGET: <span class="val">${D.config.target_pdb||"--"}</span></div>
+    <div>DESIGNS: <span class="val">${fmt_num(D.config.total_designs)}</span></div>
+    <div>MODE: <span class="val">${D.config.gpu_mode||"--"}</span></div>
+    <div><span class="live-dot ${isStale?"stale":"live"}"></span>${updatedAgo}</div>
+  </div>
+  <div class="overall-bar">
+    <div class="pct">${D.pipeline_pct}%<span class="status-text">${D.pipeline_status}</span></div>
+    <div class="track"><div class="fill" style="width:${D.pipeline_pct}%"></div></div>
+  </div>
+`;
+
+/* ---- tabs ---- */
+const C=qs("#C");
+const sections=["sec-flow","sec-stages","sec-gantt"];
+sections.forEach(id=>{const s=el("div",{class:"section",id});C.appendChild(s)});
+qs(".nav").addEventListener("click",e=>{
+  const a=e.target.closest("a[data-tab]");if(!a)return;
+  qs(".nav a.active").classList.remove("active");a.classList.add("active");
+  sections.forEach(id=>{const s=qs("#"+id);s.classList.toggle("active",id===a.dataset.tab)});
+});
+qs("#sec-flow").classList.add("active");
+
+/* ==================================================================
+   SECTION 1: Pipeline flow diagram (SVG)
+   ================================================================== */
+(function(){
+  const sec=qs("#sec-flow");
+  sec.appendChild(el("div",{class:"stitle",html:"Pipeline Flow"}));
+
+  const stages=D.stages;
+  /* Build adjacency: determine which stages are parallel */
+  const parallel_set=new Set(["pisa","prodigy","qv_scores","deeprank_a","qv2pdb"]);
+  const after_parallel=new Set(["combine_scores"]);
+
+  /* Layout: compute columns. Parallel stages share a column. */
+  const cols=[];
+  let i=0;
+  while(i<stages.length){
+    const s=stages[i];
+    if(parallel_set.has(s.name)){
+      const group=[];
+      while(i<stages.length&&parallel_set.has(stages[i].name)){group.push(stages[i]);i++}
+      cols.push(group);
+    } else {
+      cols.push([s]);
+      i++;
+    }
+  }
+
+  const nodeW=130,nodeH=36,gapX=50,gapY=12,padX=30,padY=40;
+  const totalW=cols.length*(nodeW+gapX)-gapX+padX*2;
+  const maxRows=Math.max(...cols.map(c=>c.length));
+  const totalH=maxRows*(nodeH+gapY)-gapY+padY*2;
+
+  const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+  svg.setAttribute("class","flow-svg");
+  svg.setAttribute("viewBox",`0 0 ${totalW} ${totalH}`);
+  svg.setAttribute("width",totalW);
+  svg.setAttribute("height",totalH);
+  svg.style.display="block";svg.style.margin="0 auto";
+
+  /* defs: glow filter */
+  const defs=document.createElementNS("http://www.w3.org/2000/svg","defs");
+  defs.innerHTML=`
+    <filter id="glow"><feGaussianBlur stdDeviation="3" result="g"/>
+    <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="var(--dim)" opacity=".5"/>
+    </marker>`;
+  svg.appendChild(defs);
+
+  /* position nodes */
+  const positions=[];
+  cols.forEach((col,ci)=>{
+    const x=padX+ci*(nodeW+gapX);
+    const colH=col.length*(nodeH+gapY)-gapY;
+    const y0=padY+(totalH-padY*2-colH)/2;
+    col.forEach((s,ri)=>{
+      const y=y0+ri*(nodeH+gapY);
+      positions.push({s,x,y,ci,ri});
+    });
+  });
+
+  /* draw edges first */
+  for(let ci=1;ci<cols.length;ci++){
+    const prevCol=cols[ci-1];
+    const curCol=cols[ci];
+    const prevPositions=positions.filter(p=>p.ci===ci-1);
+    const curPositions=positions.filter(p=>p.ci===ci);
+    prevPositions.forEach(pp=>{
+      curPositions.forEach(cp=>{
+        const line=document.createElementNS("http://www.w3.org/2000/svg","path");
+        const x1=pp.x+nodeW,y1=pp.y+nodeH/2;
+        const x2=cp.x,y2=cp.y+nodeH/2;
+        const mx=(x1+x2)/2;
+        line.setAttribute("d",`M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`);
+        line.setAttribute("fill","none");
+        line.setAttribute("stroke","var(--muted)");
+        line.setAttribute("stroke-width","1.5");
+        line.setAttribute("stroke-dasharray",cp.s.status==="pending"?"4,4":"none");
+        line.setAttribute("marker-end","url(#arrow)");
+        line.setAttribute("opacity","0.4");
+        svg.appendChild(line);
+      });
+    });
+  }
+
+  /* draw nodes */
+  positions.forEach(({s,x,y})=>{
+    const g=document.createElementNS("http://www.w3.org/2000/svg","g");
+    g.setAttribute("transform",`translate(${x},${y})`);
+
+    const rect=document.createElementNS("http://www.w3.org/2000/svg","rect");
+    rect.setAttribute("width",nodeW);rect.setAttribute("height",nodeH);
+    rect.setAttribute("rx","8");
+    rect.setAttribute("fill",SCbg[s.status]);
+    rect.setAttribute("stroke",SCfill[s.status]);
+    rect.setAttribute("stroke-width",s.status==="running"?"2":"1.5");
+    if(s.status==="running") rect.setAttribute("filter","url(#glow)");
+    g.appendChild(rect);
+
+    /* progress bar inside node */
+    if(s.pct>0&&s.pct<100){
+      const bar=document.createElementNS("http://www.w3.org/2000/svg","rect");
+      bar.setAttribute("x","2");bar.setAttribute("y",nodeH-5);
+      bar.setAttribute("width",Math.max(2,(nodeW-4)*s.pct/100));bar.setAttribute("height","3");
+      bar.setAttribute("rx","1.5");bar.setAttribute("fill",SCfill[s.status]);bar.setAttribute("opacity","0.6");
+      g.appendChild(bar);
+    }
+
+    const text=document.createElementNS("http://www.w3.org/2000/svg","text");
+    text.setAttribute("x",nodeW/2);text.setAttribute("y",nodeH/2+1);
+    text.setAttribute("text-anchor","middle");text.setAttribute("dominant-baseline","middle");
+    text.setAttribute("fill",SCfill[s.status]);
+    text.setAttribute("font-size","11");text.setAttribute("font-weight","600");
+    text.textContent=s.display_name;
+    g.appendChild(text);
+
+    /* status icon */
+    if(s.status==="done"){
+      const check=document.createElementNS("http://www.w3.org/2000/svg","text");
+      check.setAttribute("x",nodeW-10);check.setAttribute("y","12");
+      check.setAttribute("font-size","10");check.setAttribute("fill",SCfill.done);
+      check.textContent="\u2713";g.appendChild(check);
+    } else if(s.status==="running"){
+      const dot=document.createElementNS("http://www.w3.org/2000/svg","circle");
+      dot.setAttribute("cx",nodeW-8);dot.setAttribute("cy","9");dot.setAttribute("r","3");
+      dot.setAttribute("fill",SCfill.running);
+      const anim=document.createElementNS("http://www.w3.org/2000/svg","animate");
+      anim.setAttribute("attributeName","opacity");anim.setAttribute("values","1;.3;1");
+      anim.setAttribute("dur","1.5s");anim.setAttribute("repeatCount","indefinite");
+      dot.appendChild(anim);g.appendChild(dot);
+    }
+
+    /* tooltip */
+    g.style.cursor="pointer";
+    g.addEventListener("mousemove",e=>{
+      let h=`<b style="color:${SCfill[s.status]}">${s.display_name}</b> &middot; ${s.status}`;
+      if(s.job_id) h+=`<br>Job: ${s.job_id}`;
+      if(s.total>0) h+=`<br>${fmt_num(s.done)} / ${fmt_num(s.total)} (${s.pct}%)`;
+      if(s.n_tasks>0) h+=`<br>${s.n_tasks} tasks`;
+      if(s.n_running>0) h+=` &middot; ${s.n_running} running`;
+      if(s.wall_seconds!=null) h+=`<br>Wall: ${fmt_time(s.wall_seconds)}`;
+      if(s.eta_seconds!=null) h+=`<br>ETA: ${fmt_eta(s.eta_seconds)}`;
+      showTip(e,h);
+    });
+    g.addEventListener("mouseleave",hideTip);
+
+    svg.appendChild(g);
+  });
+
+  const wrap=el("div",{class:"flow-container"});
+  wrap.appendChild(svg);
+  sec.appendChild(wrap);
+})();
+
+/* ==================================================================
+   SECTION 2: Stage cards
+   ================================================================== */
+(function(){
+  const sec=qs("#sec-stages");
+  sec.appendChild(el("div",{class:"stitle",html:"Stage Details"}));
+  const grid=el("div",{class:"stage-grid"});
+
+  D.stages.forEach(s=>{
+    const card=el("div",{class:`card s-${s.status}`});
+
+    /* header */
+    const head=el("div",{class:"card-head"});
+    head.appendChild(el("h3",{text:s.display_name}));
+    head.appendChild(el("span",{class:`badge badge-${s.status}`,text:s.status}));
+    card.appendChild(head);
+
+    /* progress bar */
+    const bar=el("div",{class:"card-bar"});
+    bar.appendChild(el("div",{class:"fill",style:`width:${s.pct}%`}));
+    card.appendChild(bar);
+
+    /* stats row */
+    const stats=el("div",{class:"card-stats"});
+    if(s.job_id) stats.appendChild(el("div",{html:`JOB <span class="val">${s.job_id}</span>`}));
+    if(s.total>0) stats.appendChild(el("div",{html:`${fmt_num(s.done)} / ${fmt_num(s.total)} <span class="val">(${s.pct}%)</span>`}));
+    if(s.n_tasks>0){
+      let t=`${s.n_tasks} tasks`;
+      if(s.n_running>0) t+=` &middot; <span class="val" style="color:var(--cyan)">${s.n_running} running</span>`;
+      stats.appendChild(el("div",{html:t}));
+    }
+    if(s.wall_seconds!=null) stats.appendChild(el("div",{html:`WALL <span class="val">${fmt_time(s.wall_seconds)}</span>`}));
+    if(s.eta_seconds!=null) stats.appendChild(el("div",{html:`ETA <span class="val" style="color:var(--yellow)">${fmt_eta(s.eta_seconds)}</span>`}));
+    card.appendChild(stats);
+
+    /* per-task table */
+    if(s.tasks&&s.tasks.length>0){
+      const toggle=el("div",{class:"task-toggle",text:`\u25B6 ${s.tasks.length} tasks`});
+      const taskDiv=el("div",{class:"task-list collapsed"});
+
+      const table=el("table",{class:"task-table"});
+      const thead=el("thead");
+      const hr=el("tr");
+      ["Task","Done","Host","Status","Resources"].forEach(h=>hr.appendChild(el("th",{text:h})));
+      thead.appendChild(hr);table.appendChild(thead);
+
+      const tbody=el("tbody");
+      s.tasks.forEach(t=>{
+        const tr=el("tr");
+        tr.appendChild(el("td",{text:String(t.task_id)}));
+        tr.appendChild(el("td",{text:t.total?`${fmt_num(t.done||0)}/${fmt_num(t.total)}`:"--"}));
+        tr.appendChild(el("td",{text:t.host||"--"}));
+        const stTd=el("td",{class:`st-${t.status}`,text:t.status});tr.appendChild(stTd);
+        const res=t.gpus!=null?`${t.gpus} GPU`:(t.cpus!=null?`${t.cpus} CPU`:"--");
+        tr.appendChild(el("td",{text:res}));
+        tbody.appendChild(tr);
+      });
+      table.appendChild(tbody);
+      taskDiv.appendChild(table);
+
+      toggle.addEventListener("click",()=>{
+        const collapsed=taskDiv.classList.toggle("collapsed");
+        toggle.textContent=(collapsed?"\u25B6":"\u25BC")+` ${s.tasks.length} tasks`;
+      });
+
+      card.appendChild(toggle);
+      card.appendChild(taskDiv);
+    }
+
+    grid.appendChild(card);
+  });
+
+  sec.appendChild(grid);
+})();
+
+/* ==================================================================
+   SECTION 3: Gantt timeline
+   ================================================================== */
+(function(){
+  const sec=qs("#sec-gantt");
+  sec.appendChild(el("div",{class:"stitle",html:"Timeline"}));
+
+  /* compute time range */
+  const allStarts=D.stages.filter(s=>s.started).map(s=>new Date(s.started).getTime());
+  const allEnds=D.stages.filter(s=>s.ended).map(s=>new Date(s.ended).getTime());
+  const runningEnds=D.stages.filter(s=>s.status==="running"&&s.started).map(s=>{
+    const st=new Date(s.started).getTime();
+    return s.wall_seconds?st+s.wall_seconds*1000:Date.now();
+  });
+
+  if(allStarts.length===0){
+    sec.appendChild(el("div",{class:"card",html:"<p style='color:var(--dim);padding:20px;font-family:JetBrains Mono,monospace;font-size:12px'>No stages started yet</p>"}));
+    return;
+  }
+
+  const tMin=Math.min(...allStarts);
+  const tMax=Math.max(...allEnds,...runningEnds,Date.now());
+  const duration=(tMax-tMin)/1000; /* seconds */
+
+  const stagesWithTime=D.stages.filter(s=>s.started);
+  const rowH=32,padL=130,padR=30,padT=30,padB=40;
+  const barArea=Math.max(500,Math.min(1200,duration/3));
+  const W=padL+barArea+padR;
+  const H=padT+stagesWithTime.length*rowH+padB;
+
+  const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+  svg.setAttribute("class","gantt-svg");
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
+  svg.setAttribute("width",W);svg.setAttribute("height",H);
+  svg.style.display="block";svg.style.margin="0 auto";
+
+  const xScale=t=>padL+(t-tMin)/1000/duration*barArea;
+
+  /* grid lines + time labels */
+  const nTicks=Math.min(8,Math.max(3,Math.floor(barArea/100)));
+  for(let i=0;i<=nTicks;i++){
+    const t=tMin+i/nTicks*(tMax-tMin);
+    const x=xScale(t);
+    const line=document.createElementNS("http://www.w3.org/2000/svg","line");
+    line.setAttribute("x1",x);line.setAttribute("x2",x);
+    line.setAttribute("y1",padT-5);line.setAttribute("y2",H-padB);
+    line.setAttribute("stroke","var(--border)");line.setAttribute("stroke-width","1");
+    svg.appendChild(line);
+
+    const secs=(t-tMin)/1000;
+    let label;
+    if(duration>7200) label=`${Math.round(secs/3600)}h`;
+    else if(duration>120) label=`${Math.round(secs/60)}m`;
+    else label=`${Math.round(secs)}s`;
+
+    const txt=document.createElementNS("http://www.w3.org/2000/svg","text");
+    txt.setAttribute("x",x);txt.setAttribute("y",H-padB+16);
+    txt.setAttribute("text-anchor","middle");txt.setAttribute("fill","var(--dim)");
+    txt.setAttribute("font-size","10");txt.textContent=label;
+    svg.appendChild(txt);
+  }
+
+  /* bars */
+  stagesWithTime.forEach((s,i)=>{
+    const y=padT+i*rowH;
+    const tStart=new Date(s.started).getTime();
+    let tEnd;
+    if(s.ended) tEnd=new Date(s.ended).getTime();
+    else if(s.wall_seconds) tEnd=tStart+s.wall_seconds*1000;
+    else tEnd=Date.now();
+
+    const x1=xScale(tStart);
+    const x2=xScale(tEnd);
+    const barW=Math.max(3,x2-x1);
+
+    /* label */
+    const label=document.createElementNS("http://www.w3.org/2000/svg","text");
+    label.setAttribute("x",padL-10);label.setAttribute("y",y+rowH/2+1);
+    label.setAttribute("text-anchor","end");label.setAttribute("dominant-baseline","middle");
+    label.setAttribute("fill","var(--dim)");label.setAttribute("font-size","11");
+    label.setAttribute("font-weight","500");
+    label.textContent=s.display_name;
+    svg.appendChild(label);
+
+    /* bg stripe */
+    if(i%2===0){
+      const bg=document.createElementNS("http://www.w3.org/2000/svg","rect");
+      bg.setAttribute("x",padL);bg.setAttribute("y",y);
+      bg.setAttribute("width",barArea);bg.setAttribute("height",rowH);
+      bg.setAttribute("fill","rgba(255,255,255,.015)");
+      svg.appendChild(bg);
+    }
+
+    /* bar */
+    const rect=document.createElementNS("http://www.w3.org/2000/svg","rect");
+    rect.setAttribute("x",x1);rect.setAttribute("y",y+6);
+    rect.setAttribute("width",barW);rect.setAttribute("height",rowH-12);
+    rect.setAttribute("rx","4");
+    rect.setAttribute("fill",SCfill[s.status]);
+    rect.setAttribute("opacity",s.status==="running"?"0.7":"0.85");
+    svg.appendChild(rect);
+
+    /* running animation: striped pattern */
+    if(s.status==="running"){
+      const anim=document.createElementNS("http://www.w3.org/2000/svg","rect");
+      anim.setAttribute("x",x1);anim.setAttribute("y",y+6);
+      anim.setAttribute("width",barW);anim.setAttribute("height",rowH-12);
+      anim.setAttribute("rx","4");anim.setAttribute("fill","url(#stripes)");
+      anim.setAttribute("opacity","0.3");
+      svg.appendChild(anim);
+    }
+
+    /* wall time label */
+    if(s.wall_seconds!=null&&barW>40){
+      const wt=document.createElementNS("http://www.w3.org/2000/svg","text");
+      wt.setAttribute("x",x1+barW/2);wt.setAttribute("y",y+rowH/2+1);
+      wt.setAttribute("text-anchor","middle");wt.setAttribute("dominant-baseline","middle");
+      wt.setAttribute("fill","#fff");wt.setAttribute("font-size","9");wt.setAttribute("font-weight","600");
+      wt.textContent=fmt_time(s.wall_seconds);
+      svg.appendChild(wt);
+    }
+
+    /* tooltip area */
+    const hitArea=document.createElementNS("http://www.w3.org/2000/svg","rect");
+    hitArea.setAttribute("x",padL);hitArea.setAttribute("y",y);
+    hitArea.setAttribute("width",barArea);hitArea.setAttribute("height",rowH);
+    hitArea.setAttribute("fill","transparent");hitArea.style.cursor="pointer";
+    hitArea.addEventListener("mousemove",e=>{
+      let h=`<b style="color:${SCfill[s.status]}">${s.display_name}</b>`;
+      if(s.started) h+=`<br>Start: ${new Date(s.started).toLocaleTimeString()}`;
+      if(s.ended) h+=`<br>End: ${new Date(s.ended).toLocaleTimeString()}`;
+      if(s.wall_seconds!=null) h+=`<br>Wall: ${fmt_time(s.wall_seconds)}`;
+      if(s.n_tasks>0) h+=`<br>${s.n_tasks} tasks`;
+      showTip(e,h);
+    });
+    hitArea.addEventListener("mouseleave",hideTip);
+    svg.appendChild(hitArea);
+  });
+
+  /* striped pattern for running bars */
+  const defs=document.createElementNS("http://www.w3.org/2000/svg","defs");
+  defs.innerHTML=`<pattern id="stripes" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+    <rect width="6" height="12" fill="rgba(255,255,255,.15)"/>
+  </pattern>`;
+  svg.insertBefore(defs,svg.firstChild);
+
+  /* legend */
+  const legend=el("div",{style:"display:flex;gap:20px;margin-top:12px;font-family:JetBrains Mono,monospace;font-size:10px;color:var(--dim);justify-content:center"});
+  [["done","\u2588\u2588\u2588"],["running","\u2591\u2591\u2591"],["pending","\u2500\u2500\u2500"]].forEach(([st,sym])=>{
+    legend.appendChild(el("span",{html:`<span style="color:${SCfill[st]}">${sym}</span> ${st}`}));
+  });
+
+  const wrap=el("div",{class:"gantt-container"});
+  wrap.appendChild(svg);
+  wrap.appendChild(legend);
+  sec.appendChild(wrap);
+})();
+
+/* ---- Auto-refresh ---- */
+const REFRESH_MS=30000;
+let _refreshTimer=null;
+function scheduleRefresh(){
+  _refreshTimer=setTimeout(async()=>{
+    try{
+      const r=await fetch("progress.json?_="+Date.now());
+      if(r.ok){
+        const nd=await r.json();
+        /* Reload page with new data */
+        window.P=nd;
+        location.reload();
+      }
+    }catch(e){}
+    scheduleRefresh();
+  },REFRESH_MS);
+}
+scheduleRefresh();
+
+})();
+</script>
+</body>
+</html>
