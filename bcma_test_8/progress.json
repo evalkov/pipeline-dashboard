@@ -1,7 +1,7 @@
 {
   "run_id": "bcma_test_8",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/bcma_test_8",
-  "updated": "2026-02-28T21:43:16.916765+00:00",
+  "updated": "2026-02-28T21:44:17.927196+00:00",
   "config": {
     "total_designs": 10000,
     "target_pdb": "bcma",
@@ -3228,37 +3228,126 @@
     {
       "name": "rosetta",
       "display_name": "rosetta",
-      "status": "running",
+      "status": "done",
       "job_id": "51018212",
-      "done": 9675,
+      "done": 9999,
       "total": 9999,
-      "pct": 96.8,
+      "pct": 100.0,
       "n_tasks": 4,
-      "n_running": 2,
-      "wall_seconds": null,
-      "eta_seconds": 16.0,
-      "started": "2026-02-28T21:35:16+00:00",
+      "n_running": 0,
+      "wall_seconds": 66.0,
+      "eta_seconds": null,
+      "started": null,
       "ended": null,
       "tasks": [
         {
           "task_id": 0,
-          "done": 2500,
-          "total": 2500,
+          "done": 2499,
+          "total": 2499,
           "status": "done",
+          "host": "fsitgl-hpc033p.ncifcrf.gov"
+        },
+        {
+          "task_id": 1,
+          "done": 2499,
+          "total": 2499,
+          "status": "done",
+          "host": "fsitgl-hpc140p.ncifcrf.gov"
+        },
+        {
+          "task_id": 2,
+          "done": 2499,
+          "total": 2499,
+          "status": "done",
+          "host": "fsitgl-hpc148p.ncifcrf.gov"
+        },
+        {
+          "task_id": 3,
+          "done": 2499,
+          "total": 2499,
+          "status": "done",
+          "host": "fsitgl-hpc158p.ncifcrf.gov"
+        }
+      ]
+    },
+    {
+      "name": "qv2pdb",
+      "display_name": "qv2pdb",
+      "status": "running",
+      "job_id": "51018214",
+      "done": 0,
+      "total": 0,
+      "pct": 0.0,
+      "n_tasks": 1,
+      "n_running": 0,
+      "wall_seconds": 0.0,
+      "eta_seconds": null,
+      "started": "2026-02-28T21:44:08+00:00",
+      "ended": null,
+      "tasks": [
+        {
+          "task_id": 0,
+          "status": "running",
+          "host": null
+        }
+      ]
+    },
+    {
+      "name": "qv_scores",
+      "display_name": "qv_scores",
+      "status": "running",
+      "job_id": "51018215",
+      "done": 0,
+      "total": 0,
+      "pct": 0.0,
+      "n_tasks": 1,
+      "n_running": 0,
+      "wall_seconds": 0.0,
+      "eta_seconds": null,
+      "started": "2026-02-28T21:44:05+00:00",
+      "ended": null,
+      "tasks": [
+        {
+          "task_id": 0,
+          "status": "running",
+          "host": null
+        }
+      ]
+    },
+    {
+      "name": "pisa",
+      "display_name": "pisa",
+      "status": "running",
+      "job_id": "51018216",
+      "done": 0,
+      "total": 9999,
+      "pct": 0.0,
+      "n_tasks": 4,
+      "n_running": 4,
+      "wall_seconds": null,
+      "eta_seconds": null,
+      "started": "2026-02-28T21:44:14+00:00",
+      "ended": null,
+      "tasks": [
+        {
+          "task_id": 0,
+          "done": 0,
+          "total": 2500,
+          "status": "running",
           "host": "fsitgl-hpc033p",
           "cpus": 36
         },
         {
           "task_id": 1,
-          "done": 2500,
+          "done": 0,
           "total": 2500,
-          "status": "done",
+          "status": "running",
           "host": "fsitgl-hpc140p",
           "cpus": 36
         },
         {
           "task_id": 2,
-          "done": 2250,
+          "done": 0,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc148p",
@@ -3266,61 +3355,13 @@
         },
         {
           "task_id": 3,
-          "done": 2425,
+          "done": 0,
           "total": 2499,
           "status": "running",
           "host": "fsitgl-hpc158p",
           "cpus": 36
         }
       ]
-    },
-    {
-      "name": "qv2pdb",
-      "display_name": "qv2pdb",
-      "status": "pending",
-      "job_id": null,
-      "done": 0,
-      "total": 0,
-      "pct": 0.0,
-      "n_tasks": 0,
-      "n_running": 0,
-      "wall_seconds": null,
-      "eta_seconds": null,
-      "started": null,
-      "ended": null,
-      "tasks": []
-    },
-    {
-      "name": "qv_scores",
-      "display_name": "qv_scores",
-      "status": "pending",
-      "job_id": null,
-      "done": 0,
-      "total": 0,
-      "pct": 0.0,
-      "n_tasks": 0,
-      "n_running": 0,
-      "wall_seconds": null,
-      "eta_seconds": null,
-      "started": null,
-      "ended": null,
-      "tasks": []
-    },
-    {
-      "name": "pisa",
-      "display_name": "pisa",
-      "status": "pending",
-      "job_id": null,
-      "done": 0,
-      "total": 0,
-      "pct": 0.0,
-      "n_tasks": 0,
-      "n_running": 0,
-      "wall_seconds": null,
-      "eta_seconds": null,
-      "started": null,
-      "ended": null,
-      "tasks": []
     },
     {
       "name": "prodigy",
@@ -3404,5 +3445,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 19.7
+  "pipeline_pct": 20.0
 }
