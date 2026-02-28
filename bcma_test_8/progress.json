@@ -1,7 +1,7 @@
 {
   "run_id": "bcma_test_8",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/bcma_test_8",
-  "updated": "2026-02-28T18:44:40.159259+00:00",
+  "updated": "2026-02-28T18:45:41.171965+00:00",
   "config": {
     "total_designs": 10000,
     "target_pdb": "bcma",
@@ -3537,23 +3537,23 @@
     {
       "name": "deeprank_b",
       "display_name": "deeprank_b",
-      "status": "running",
+      "status": "done",
       "job_id": "51016639",
-      "done": 5,
+      "done": 25,
       "total": 25,
-      "pct": 20.0,
+      "pct": 100.0,
       "n_tasks": 2,
-      "n_running": 1,
-      "wall_seconds": null,
-      "eta_seconds": 431.0,
+      "n_running": 0,
+      "wall_seconds": 127,
+      "eta_seconds": null,
       "started": "2026-02-28T18:42:52+00:00",
-      "ended": null,
+      "ended": "2026-02-28T18:44:59+00:00",
       "tasks": [
         {
           "task_id": 0,
-          "done": 0,
+          "done": 20,
           "total": 20,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc188p",
           "gpus": 4
         },
@@ -3570,34 +3570,46 @@
     {
       "name": "combine_scores",
       "display_name": "combine_scores",
-      "status": "pending",
-      "job_id": null,
+      "status": "running",
+      "job_id": "51016641",
       "done": 0,
       "total": 0,
       "pct": 0.0,
-      "n_tasks": 0,
+      "n_tasks": 1,
       "n_running": 0,
-      "wall_seconds": null,
+      "wall_seconds": 0.0,
       "eta_seconds": null,
-      "started": null,
+      "started": "2026-02-28T18:45:08+00:00",
       "ended": null,
-      "tasks": []
+      "tasks": [
+        {
+          "task_id": 0,
+          "status": "running",
+          "host": null
+        }
+      ]
     },
     {
       "name": "epitope",
       "display_name": "epitope",
-      "status": "pending",
-      "job_id": null,
+      "status": "running",
+      "job_id": "51016642",
       "done": 0,
       "total": 0,
       "pct": 0.0,
-      "n_tasks": 0,
+      "n_tasks": 1,
       "n_running": 0,
-      "wall_seconds": null,
+      "wall_seconds": 0.0,
       "eta_seconds": null,
-      "started": null,
+      "started": "2026-02-28T18:45:21+00:00",
       "ended": null,
-      "tasks": []
+      "tasks": [
+        {
+          "task_id": 0,
+          "status": "running",
+          "host": null
+        }
+      ]
     },
     {
       "name": "plots",
@@ -3617,5 +3629,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 65.5
+  "pipeline_pct": 72.7
 }
