@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pipeline Progress — NanobodyDesigner</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080a0f;--surface:#0f1218;--surface2:#161b24;--surface3:#1c2230;--border:#1e2535;--border-glow:#2a3548;--text:#e8eaf0;--dim:#6b7a94;--muted:#3d4b63;--accent:#f97316;--accent-glow:rgba(249,115,22,.15);--cyan:#22d3ee;--green:#34d399;--purple:#a78bfa;--pink:#f472b6;--red:#f87171;--yellow:#fbbf24}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;line-height:1.5;min-height:100vh;position:relative}
+
+body::before{content:'';position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse 80% 60% at 10% 0%,rgba(249,115,22,.04) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 90% 10%,rgba(34,211,238,.03) 0%,transparent 50%),radial-gradient(ellipse 70% 40% at 50% 100%,rgba(167,139,250,.03) 0%,transparent 50%);pointer-events:none;z-index:0}
+
+body::after{content:'';position:fixed;top:0;left:0;right:0;bottom:0;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");pointer-events:none;z-index:0}
+
+.header{padding:36px 40px 20px;border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(15,18,24,.9),var(--bg));position:relative;z-index:1}
+.header h1{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:700;letter-spacing:-1px;color:var(--dim)}
+.header h1 .run-id{color:var(--accent)}
+.header-meta{display:flex;flex-wrap:wrap;gap:28px;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--dim);align-items:center}
+.header-meta .val{color:var(--text);font-weight:600}
+.live-dot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.live-dot.live{background:var(--green);box-shadow:0 0 6px var(--green);animation:pulse 2s ease-in-out infinite}
+.live-dot.stale{background:var(--red);box-shadow:0 0 6px var(--red)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+.overall-bar{margin-top:16px;position:relative}
+.overall-bar .track{height:6px;background:var(--surface3);border-radius:3px;overflow:hidden}
+.overall-bar .fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--accent),var(--yellow));transition:width .8s ease}
+.overall-bar .pct{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.overall-bar .pct .status-text{font-size:12px;color:var(--dim);font-weight:400;margin-left:12px;text-transform:uppercase;letter-spacing:.5px}
+
+.content{padding:28px 40px 80px;position:relative;z-index:1}
+.section{margin-bottom:48px}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.stitle{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:9px;letter-spacing:-.3px;color:var(--dim)}
+.stitle::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--border),transparent);margin-left:12px}
+
+/* ---- Pipeline flow ---- */
+.flow-container{padding:20px 0;overflow-x:auto}
+.flow-svg text{font-family:'JetBrains Mono',monospace}
+
+/* ---- Stage cards ---- */
+.stage-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(420px,1fr));gap:18px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px;position:relative;overflow:hidden;transition:transform .25s ease,box-shadow .25s ease}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.3);border-color:var(--border-glow)}
+.card.s-done{border-top:2px solid var(--green)}
+.card.s-running{border-top:2px solid var(--cyan)}
+.card.s-pending{border-top:2px solid var(--muted)}
+.card.s-failed{border-top:2px solid var(--red)}
+
+.card-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.card-head h3{font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--text)}
+.card-head .badge{font-size:10px;padding:2px 8px;border-radius:4px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;font-family:'JetBrains Mono',monospace}
+.badge-done{background:rgba(52,211,153,.12);color:var(--green);border:1px solid rgba(52,211,153,.2)}
+.badge-running{background:rgba(34,211,238,.12);color:var(--cyan);border:1px solid rgba(34,211,238,.2);animation:pulse 2s ease-in-out infinite}
+.badge-pending{background:rgba(107,122,148,.1);color:var(--dim);border:1px solid rgba(107,122,148,.15)}
+.badge-failed{background:rgba(248,113,113,.12);color:var(--red);border:1px solid rgba(248,113,113,.2)}
+
+.card-bar{height:4px;background:var(--surface3);border-radius:2px;overflow:hidden;margin-bottom:10px}
+.card-bar .fill{height:100%;border-radius:2px;transition:width .8s ease}
+.s-done .card-bar .fill{background:var(--green)}
+.s-running .card-bar .fill{background:linear-gradient(90deg,var(--cyan),var(--accent))}
+.s-pending .card-bar .fill{background:var(--muted)}
+
+.card-stats{display:flex;flex-wrap:wrap;gap:16px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);margin-bottom:8px}
+.card-stats .val{color:var(--text);font-weight:600}
+
+.task-table{width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:10px;margin-top:10px}
+.task-table th{text-align:left;color:var(--dim);font-weight:500;padding:4px 8px;border-bottom:1px solid var(--border);text-transform:uppercase;letter-spacing:.5px;font-size:9px}
+.task-table td{padding:3px 8px;border-bottom:1px solid rgba(30,37,53,.5);color:var(--text)}
+.task-table .st-done{color:var(--green)}.task-table .st-running{color:var(--cyan)}.task-table .st-failed{color:var(--red)}
+.task-toggle{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim);cursor:pointer;padding:4px 0;user-select:none;transition:color .2s}
+.task-toggle:hover{color:var(--accent)}
+.task-list{max-height:200px;overflow-y:auto;margin-top:4px}
+.task-list.collapsed{display:none}
+
+/* Custom scrollbars */
+::-webkit-scrollbar{width:7px;height:7px}
+::-webkit-scrollbar-track{background:rgba(15,18,24,.6);border-radius:4px}
+::-webkit-scrollbar-thumb{background:rgba(249,115,22,.18);border-radius:4px;border:1px solid rgba(249,115,22,.08)}
+::-webkit-scrollbar-thumb:hover{background:rgba(249,115,22,.3)}
+::-webkit-scrollbar-corner{background:transparent}
+*{scrollbar-width:thin;scrollbar-color:rgba(249,115,22,.18) rgba(15,18,24,.6)}
+
+.tip{position:fixed;pointer-events:none;background:rgba(15,18,24,.96);border:1px solid var(--border-glow);border-radius:8px;padding:8px 12px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text);z-index:1000;opacity:0;transition:opacity .12s;box-shadow:0 8px 32px rgba(0,0,0,.6);max-width:260px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="header" id="hdr"></div>
+<div class="content" id="C"></div>
+<div class="tip" id="TT"></div>
+
+<script>
+/* Data injected by publish_dashboard.py — fallback to fetch for dev */
+const P={"run_id":"bcma_test_6_new","run_root":"/mnt/beegfs/valkov/rfantibody/unified/bcma_test_6_new","updated":"2026-03-01T20:22:53.071569+00:00","config":{"total_designs":10000,"target_pdb":"bcma","gpu_mode":"streaming","refresh_interval":60},"stages":[{"name":"gpu_stages","display_name":"rfantibody","status":"done","job_id":"50968938","done":10000,"total":10000,"pct":100.0,"n_tasks":400,"n_running":0,"wall_seconds":2159,"eta_seconds":null,"started":"2026-02-23T17:57:41+00:00","ended":"2026-02-23T18:33:40+00:00","tasks":[{"task_id":0,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":1,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":2,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":3,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":4,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":5,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":6,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":7,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":8,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":9,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":10,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":11,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":12,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":13,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":14,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":15,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":16,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":17,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":18,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":19,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":20,"done":25,"total":25,"status":"done","host":"fsitgl-hpc183p.ncifcrf.gov","gpus":1},{"task_id":21,"done":25,"total":25,"status":"done","host":"fsitgl-hpc183p.ncifcrf.gov","gpus":1},{"task_id":22,"done":25,"total":25,"status":"done","host":"fsitgl-hpc183p.ncifcrf.gov","gpus":1},{"task_id":23,"done":25,"total":25,"status":"done","host":"fsitgl-hpc183p.ncifcrf.gov","gpus":1},{"task_id":24,"done":25,"total":25,"status":"done","host":"fsitgl-hpc185p.ncifcrf.gov","gpus":1},{"task_id":25,"done":25,"total":25,"status":"done","host":"fsitgl-hpc186p.ncifcrf.gov","gpus":1},{"task_id":26,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":27,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":28,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":29,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":30,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":31,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":32,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":33,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":34,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":35,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":36,"done":25,"total":25,"status":"done","host":"fsitgl-hpc185p.ncifcrf.gov","gpus":1},{"task_id":37,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":38,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":39,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":40,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":41,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":42,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":43,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":44,"done":25,"total":25,"status":"done","host":"fsitgl-hpc186p.ncifcrf.gov","gpus":1},{"task_id":45,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":46,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":47,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":48,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":49,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":50,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":51,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":52,"done":25,"total":25,"status":"done","host":"fsitgl-hpc183p.ncifcrf.gov","gpus":1},{"task_id":53,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":54,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":55,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":56,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":57,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":58,"done":25,"total":25,"status":"done","host":"fsitgl-hpc183p.ncifcrf.gov","gpus":1},{"task_id":59,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":60,"done":25,"total":25,"status":"done","host":"fsitgl-hpc183p.ncifcrf.gov","gpus":1},{"task_id":61,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":62,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":63,"done":25,"total":25,"status":"done","host":"fsitgl-hpc183p.ncifcrf.gov","gpus":1},{"task_id":64,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":65,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":66,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":67,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":68,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":69,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":70,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":71,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":72,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":73,"done":25,"total":25,"status":"done","host":"fsitgl-hpc185p.ncifcrf.gov","gpus":1},{"task_id":74,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":75,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":76,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":77,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":78,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":79,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":80,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":81,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":82,"done":25,"total":25,"status":"done","host":"fsitgl-hpc186p.ncifcrf.gov","gpus":1},{"task_id":83,"done":25,"total":25,"status":"done","host":"fsitgl-hpc183p.ncifcrf.gov","gpus":1},{"task_id":84,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":85,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":86,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":87,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":88,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":89,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":90,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":91,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":92,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":93,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":94,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":95,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":96,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":97,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":98,"done":25,"total":25,"status":"done","host":"fsitgl-hpc185p.ncifcrf.gov","gpus":1},{"task_id":99,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":100,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":101,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":102,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":103,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":104,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":105,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":106,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":107,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":108,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":109,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":110,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":111,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":112,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":113,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":114,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":115,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":116,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":117,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":118,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":119,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":120,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":121,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":122,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":123,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":124,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":125,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":126,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":127,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":128,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":129,"done":25,"total":25,"status":"done","host":"fsitgl-hpc185p.ncifcrf.gov","gpus":1},{"task_id":130,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":131,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":132,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":133,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":134,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":135,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":136,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":137,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":138,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":139,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":140,"done":25,"total":25,"status":"done","host":"fsitgl-hpc186p.ncifcrf.gov","gpus":1},{"task_id":141,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":142,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":143,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":144,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":145,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":146,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":147,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":148,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":149,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":150,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":151,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":152,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":153,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":154,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":155,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":156,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":157,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":158,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":159,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":160,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":161,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":162,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":163,"done":25,"total":25,"status":"done","host":"fsitgl-hpc185p.ncifcrf.gov","gpus":1},{"task_id":164,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":165,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":166,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":167,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":168,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":169,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":170,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":171,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":172,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":173,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":174,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":175,"done":25,"total":25,"status":"done","host":"fsitgl-hpc186p.ncifcrf.gov","gpus":1},{"task_id":176,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":177,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":178,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":179,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":180,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":181,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":182,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":183,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":184,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":185,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":186,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":187,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":188,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":189,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":190,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":191,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":192,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":193,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":194,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":195,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":196,"done":25,"total":25,"status":"done","host":"fsitgl-hpc185p.ncifcrf.gov","gpus":1},{"task_id":197,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":198,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":199,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":200,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":201,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":202,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":203,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":204,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":205,"done":25,"total":25,"status":"done","host":"fsitgl-hpc186p.ncifcrf.gov","gpus":1},{"task_id":206,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":207,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":208,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":209,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":210,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":211,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":212,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":213,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":214,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":215,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":216,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":217,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":218,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":219,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":220,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":221,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":222,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":223,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":224,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":225,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":226,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":227,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":228,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":229,"done":25,"total":25,"status":"done","host":"fsitgl-hpc185p.ncifcrf.gov","gpus":1},{"task_id":230,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":231,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":232,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":233,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":234,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":235,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":236,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":237,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":238,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":239,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":240,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":241,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":242,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":243,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":244,"done":25,"total":25,"status":"done","host":"fsitgl-hpc186p.ncifcrf.gov","gpus":1},{"task_id":245,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":246,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":247,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":248,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":249,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":250,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":251,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":252,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":253,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":254,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":255,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":256,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":257,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":258,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":259,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":260,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":261,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":262,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":263,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":264,"done":25,"total":25,"status":"done","host":"fsitgl-hpc185p.ncifcrf.gov","gpus":1},{"task_id":265,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":266,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":267,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":268,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":269,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":270,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":271,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":272,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":273,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":274,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":275,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":276,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":277,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":278,"done":25,"total":25,"status":"done","host":"fsitgl-hpc186p.ncifcrf.gov","gpus":1},{"task_id":279,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":280,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":281,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":282,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":283,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":284,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":285,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":286,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":287,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":288,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":289,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":290,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":291,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":292,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":293,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":294,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":295,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":296,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":297,"done":25,"total":25,"status":"done","host":"fsitgl-hpc185p.ncifcrf.gov","gpus":1},{"task_id":298,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":299,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":300,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":301,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":302,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":303,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":304,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":305,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":306,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":307,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":308,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":309,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":310,"done":25,"total":25,"status":"done","host":"fsitgl-hpc186p.ncifcrf.gov","gpus":1},{"task_id":311,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":312,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":313,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":314,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":315,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":316,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":317,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":318,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":319,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":320,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":321,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":322,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":323,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":324,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":325,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":326,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":327,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":328,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":329,"done":25,"total":25,"status":"done","host":"fsitgl-hpc185p.ncifcrf.gov","gpus":1},{"task_id":330,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":331,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":332,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":333,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":334,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":335,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":336,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":337,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":338,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":339,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":340,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":341,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":342,"done":25,"total":25,"status":"done","host":"fsitgl-hpc186p.ncifcrf.gov","gpus":1},{"task_id":343,"done":25,"total":25,"status":"done","host":"fsitgl-hpc187p.ncifcrf.gov","gpus":1},{"task_id":344,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":345,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":346,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":347,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":348,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":349,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":350,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":351,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":352,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":353,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":354,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":355,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":356,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":357,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":358,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":359,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":360,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":361,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":362,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":363,"done":25,"total":25,"status":"done","host":"fsitgl-hpc185p.ncifcrf.gov","gpus":1},{"task_id":364,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":365,"done":25,"total":25,"status":"done","host":"fsitgl-hpc173p.ncifcrf.gov","gpus":1},{"task_id":366,"done":25,"total":25,"status":"done","host":"fsitgl-hpc173p.ncifcrf.gov","gpus":1},{"task_id":367,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":368,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":369,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":370,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":371,"done":25,"total":25,"status":"done","host":"fsitgl-hpc185p.ncifcrf.gov","gpus":1},{"task_id":372,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":373,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":374,"done":25,"total":25,"status":"done","host":"fsitgl-hpc177p.ncifcrf.gov","gpus":1},{"task_id":375,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":376,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":377,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":378,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":379,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":380,"done":25,"total":25,"status":"done","host":"fsitgl-hpc182p.ncifcrf.gov","gpus":1},{"task_id":381,"done":25,"total":25,"status":"done","host":"fsitgl-hpc175p.ncifcrf.gov","gpus":1},{"task_id":382,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":383,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":384,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":385,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":386,"done":25,"total":25,"status":"done","host":"fsitgl-hpc172p.ncifcrf.gov","gpus":1},{"task_id":387,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":388,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":389,"done":25,"total":25,"status":"done","host":"fsitgl-hpc174p.ncifcrf.gov","gpus":1},{"task_id":390,"done":25,"total":25,"status":"done","host":"fsitgl-hpc179p.ncifcrf.gov","gpus":1},{"task_id":391,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1},{"task_id":392,"done":25,"total":25,"status":"done","host":"fsitgl-hpc185p.ncifcrf.gov","gpus":1},{"task_id":393,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":394,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":395,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":396,"done":25,"total":25,"status":"done","host":"fsitgl-hpc181p.ncifcrf.gov","gpus":1},{"task_id":397,"done":25,"total":25,"status":"done","host":"fsitgl-hpc173p.ncifcrf.gov","gpus":1},{"task_id":398,"done":25,"total":25,"status":"done","host":"fsitgl-hpc173p.ncifcrf.gov","gpus":1},{"task_id":399,"done":25,"total":25,"status":"done","host":"fsitgl-hpc178p.ncifcrf.gov","gpus":1}]},{"name":"rosetta","display_name":"rosetta","status":"done","job_id":"50968972","done":10000,"total":10000,"pct":100.0,"n_tasks":20,"n_running":0,"wall_seconds":201,"eta_seconds":null,"started":null,"ended":null,"tasks":[{"task_id":0,"done":500,"total":500,"status":"done","host":"fsitgl-hpc120p.ncifcrf.gov"},{"task_id":1,"done":500,"total":500,"status":"done","host":"fsitgl-hpc148p.ncifcrf.gov"},{"task_id":10,"done":500,"total":500,"status":"done","host":"fsitgl-hpc002p.ncifcrf.gov"},{"task_id":11,"done":500,"total":500,"status":"done","host":"fsitgl-hpc003p.ncifcrf.gov"},{"task_id":12,"done":500,"total":500,"status":"done","host":"fsitgl-hpc003p.ncifcrf.gov"},{"task_id":13,"done":500,"total":500,"status":"done","host":"fsitgl-hpc004p.ncifcrf.gov"},{"task_id":14,"done":500,"total":500,"status":"done","host":"fsitgl-hpc004p.ncifcrf.gov"},{"task_id":15,"done":500,"total":500,"status":"done","host":"fsitgl-hpc001p.ncifcrf.gov"},{"task_id":16,"done":500,"total":500,"status":"done","host":"fsitgl-hpc001p.ncifcrf.gov"},{"task_id":17,"done":500,"total":500,"status":"done","host":"fsitgl-hpc004p.ncifcrf.gov"},{"task_id":18,"done":500,"total":500,"status":"done","host":"fsitgl-hpc004p.ncifcrf.gov"},{"task_id":19,"done":500,"total":500,"status":"done","host":"fsitgl-hpc002p.ncifcrf.gov"},{"task_id":2,"done":500,"total":500,"status":"done","host":"fsitgl-hpc156p.ncifcrf.gov"},{"task_id":3,"done":500,"total":500,"status":"done","host":"fsitgl-hpc158p.ncifcrf.gov"},{"task_id":4,"done":500,"total":500,"status":"done","host":"fsitgl-hpc041p.ncifcrf.gov"},{"task_id":5,"done":500,"total":500,"status":"done","host":"fsitgl-hpc042p.ncifcrf.gov"},{"task_id":6,"done":500,"total":500,"status":"done","host":"fsitgl-hpc114p.ncifcrf.gov"},{"task_id":7,"done":500,"total":500,"status":"done","host":"fsitgl-hpc001p.ncifcrf.gov"},{"task_id":8,"done":500,"total":500,"status":"done","host":"fsitgl-hpc001p.ncifcrf.gov"},{"task_id":9,"done":500,"total":500,"status":"done","host":"fsitgl-hpc002p.ncifcrf.gov"}]},{"name":"pisa","display_name":"pisa","status":"pending","job_id":null,"done":0,"total":0,"pct":0.0,"n_tasks":0,"n_running":0,"wall_seconds":null,"eta_seconds":null,"started":null,"ended":null,"tasks":[]},{"name":"prodigy","display_name":"prodigy","status":"pending","job_id":null,"done":0,"total":0,"pct":0.0,"n_tasks":0,"n_running":0,"wall_seconds":null,"eta_seconds":null,"started":null,"ended":null,"tasks":[]},{"name":"deeprank_a","display_name":"deeprank_a","status":"pending","job_id":null,"done":0,"total":0,"pct":0.0,"n_tasks":0,"n_running":0,"wall_seconds":null,"eta_seconds":null,"started":null,"ended":null,"tasks":[]},{"name":"deeprank_b","display_name":"deeprank_b","status":"pending","job_id":null,"done":0,"total":0,"pct":0.0,"n_tasks":0,"n_running":0,"wall_seconds":null,"eta_seconds":null,"started":null,"ended":null,"tasks":[]},{"name":"combine_scores","display_name":"combine_scores","status":"pending","job_id":null,"done":0,"total":0,"pct":0.0,"n_tasks":0,"n_running":0,"wall_seconds":null,"eta_seconds":null,"started":null,"ended":null,"tasks":[]},{"name":"epitope","display_name":"epitope","status":"pending","job_id":null,"done":0,"total":0,"pct":0.0,"n_tasks":0,"n_running":0,"wall_seconds":null,"eta_seconds":null,"started":null,"ended":null,"tasks":[]}],"pipeline_status":"pending","pipeline_pct":25.0};
+const _API_OWNER="evalkov",_API_REPO="pipeline-dashboard",_API_BRANCH="main",_API_RUN_ID="bcma_test_6_new";
+(async function(){
+"use strict";
+let D;
+/* 1. Check sessionStorage for fresh data from API refresh cycle */
+try{const s=sessionStorage.getItem("_dash");if(s){D=JSON.parse(s);sessionStorage.removeItem("_dash")}}catch(e){}
+/* 2. Fallback: fetch from CDN or use embedded data */
+if(!D){try{const r=await fetch("progress.json?_="+Date.now());if(r.ok)D=await r.json()}catch(e){}}
+if(!D&&typeof P!=="undefined"){D=P}
+if(!D){document.getElementById("C").innerHTML="<p style='color:var(--red);padding:40px'>Failed to load progress.json</p>";return}
+
+/* ---- helpers ---- */
+const qs=s=>document.querySelector(s);
+const el=(t,a,c)=>{const e=document.createElement(t);if(a)Object.entries(a).forEach(([k,v])=>{if(k==="class")e.className=v;else if(k==="html")e.innerHTML=v;else if(k==="text")e.textContent=v;else e.setAttribute(k,v)});if(c)c.forEach(ch=>e.appendChild(ch));return e};
+const fmt_time=s=>{if(s==null||s<0)return"--";const h=Math.floor(s/3600),m=Math.floor((s%3600)/60);return h>0?`${h}h ${String(m).padStart(2,"0")}m`:`${m}m`};
+const fmt_eta=s=>s==null?"--":`~${fmt_time(s)}`;
+const fmt_num=n=>n==null?"--":n.toLocaleString();
+const ago=iso=>{if(!iso)return"--";const d=Math.floor((Date.now()-new Date(iso).getTime())/1000);if(d<60)return`${d}s ago`;if(d<3600)return`${Math.floor(d/60)}m ago`;return`${Math.floor(d/3600)}h ago`};
+
+const TT=qs("#TT");
+function showTip(e,html){TT.innerHTML=html;TT.style.opacity="1";TT.style.left=Math.min(e.clientX+12,window.innerWidth-280)+"px";TT.style.top=(e.clientY+12)+"px"}
+function hideTip(){TT.style.opacity="0"}
+
+/* ---- status colors ---- */
+const SC={done:"var(--green)",running:"var(--cyan)",pending:"var(--muted)",failed:"var(--red)"};
+const SCfill={done:"#34d399",running:"#22d3ee",pending:"#3d4b63",failed:"#f87171"};
+const SCbg={done:"rgba(52,211,153,.12)",running:"rgba(34,211,238,.12)",pending:"rgba(61,75,99,.08)",failed:"rgba(248,113,113,.12)"};
+
+/* ---- header ---- */
+const hdr=qs("#hdr");
+const updatedAgo=ago(D.updated);
+const isStale=(Date.now()-new Date(D.updated).getTime())>120000;
+hdr.innerHTML=`
+  <h1>Pipeline Progress <span class="run-id">${D.run_id}</span></h1>
+  <div class="header-meta">
+    <div>TARGET: <span class="val">${D.config.target_pdb||"--"}</span></div>
+    <div>DESIGNS: <span class="val">${fmt_num(D.config.total_designs)}</span></div>
+    <div>MODE: <span class="val">${D.config.gpu_mode||"--"}</span></div>
+    <div><span class="live-dot ${isStale?"stale":"live"}"></span>${updatedAgo}</div>
+  </div>
+  <div class="overall-bar">
+    <div class="pct">${D.pipeline_pct}%<span class="status-text">${D.pipeline_status}</span></div>
+    <div class="track"><div class="fill" style="width:${D.pipeline_pct}%"></div></div>
+  </div>
+`;
+
+/* ---- layout (single page, no tabs) ---- */
+const C=qs("#C");
+["sec-flow","sec-stages"].forEach(id=>{const s=el("div",{class:"section active",id});C.appendChild(s)});
+
+/* ==================================================================
+   SECTION 1: Pipeline flow diagram (SVG)
+   ================================================================== */
+(function(){
+  const sec=qs("#sec-flow");
+
+  const stages=D.stages;
+  const stageMap={};
+  stages.forEach(s=>{stageMap[s.name]=s});
+
+  const EDGES=[
+    ["gpu_stages","rosetta"],
+    ["rosetta","pisa"],
+    ["rosetta","prodigy"],
+    ["rosetta","deeprank_a"],
+    ["deeprank_a","deeprank_b"],
+    ["pisa","combine_scores"],
+    ["prodigy","combine_scores"],
+    ["deeprank_b","combine_scores"],
+    ["combine_scores","epitope"],
+  ];
+
+  const LAYOUT={
+    "gpu_stages":       {col:0, row:0},
+    "rosetta":          {col:1, row:0},
+    "pisa":             {col:2, row:0},
+    "prodigy":          {col:2, row:1},
+    "deeprank_a":       {col:2, row:2},
+    "deeprank_b":       {col:3, row:2},
+    "combine_scores":   {col:4, row:0},
+    "epitope":          {col:5, row:0},
+  };
+
+  const nCols=6;
+  const maxRows=Math.max(...Object.values(LAYOUT).map(v=>v.row))+1;
+  const nodeW=260,nodeH=72,gapX=100,gapY=24,padX=60,padY=80;
+  const totalW=nCols*(nodeW+gapX)-gapX+padX*2;
+  const totalH=maxRows*(nodeH+gapY)-gapY+padY*2;
+
+  const svg=document.createElementNS("http://www.w3.org/2000/svg","svg");
+  svg.setAttribute("class","flow-svg");
+  svg.setAttribute("viewBox",`0 0 ${totalW} ${totalH}`);
+  svg.setAttribute("width",totalW);
+  svg.setAttribute("height",totalH);
+  svg.style.display="block";svg.style.margin="0 auto";
+
+  /* defs: glow filter */
+  const defs=document.createElementNS("http://www.w3.org/2000/svg","defs");
+  defs.innerHTML=`
+    <filter id="glow"><feGaussianBlur stdDeviation="3" result="g"/>
+    <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="var(--dim)" opacity=".5"/>
+    </marker>`;
+  svg.appendChild(defs);
+
+  /* position nodes from LAYOUT */
+  const positions={};
+  Object.entries(LAYOUT).forEach(([name,{col,row}])=>{
+    const s=stageMap[name];
+    if(!s) return;
+    /* center each column's rows vertically */
+    const colRows=Object.entries(LAYOUT).filter(([,v])=>v.col===col);
+    const colH=colRows.length*(nodeH+gapY)-gapY;
+    const y0=padY+(totalH-padY*2-colH)/2;
+    const x=padX+col*(nodeW+gapX);
+    const y=y0+row*(nodeH+gapY);
+    /* adjust row index within this column for vertical centering */
+    const rowInCol=colRows.sort((a,b)=>a[1].row-b[1].row).findIndex(([n])=>n===name);
+    const yAdj=y0+rowInCol*(nodeH+gapY);
+    positions[name]={s,x,y:yAdj};
+  });
+
+  /* draw edges first */
+  EDGES.forEach(([src,tgt])=>{
+    const sp=positions[src],tp=positions[tgt];
+    if(!sp||!tp) return;
+    const line=document.createElementNS("http://www.w3.org/2000/svg","path");
+    const x1=sp.x+nodeW,y1=sp.y+nodeH/2;
+    const x2=tp.x,y2=tp.y+nodeH/2;
+    const mx=(x1+x2)/2;
+    line.setAttribute("d",`M${x1},${y1} C${mx},${y1} ${mx},${y2} ${x2},${y2}`);
+    line.setAttribute("fill","none");
+    line.setAttribute("stroke","var(--muted)");
+    line.setAttribute("stroke-width","1.5");
+    line.setAttribute("stroke-dasharray",tp.s.status==="pending"?"4,4":"none");
+    line.setAttribute("marker-end","url(#arrow)");
+    line.setAttribute("opacity","0.4");
+    svg.appendChild(line);
+  });
+
+  /* draw nodes */
+  Object.values(positions).forEach(({s,x,y})=>{
+    const g=document.createElementNS("http://www.w3.org/2000/svg","g");
+    g.setAttribute("transform",`translate(${x},${y})`);
+
+    const rect=document.createElementNS("http://www.w3.org/2000/svg","rect");
+    rect.setAttribute("width",nodeW);rect.setAttribute("height",nodeH);
+    rect.setAttribute("rx","8");
+    rect.setAttribute("fill",SCbg[s.status]);
+    rect.setAttribute("stroke",SCfill[s.status]);
+    rect.setAttribute("stroke-width",s.status==="running"?"2":"1.5");
+    if(s.status==="running") rect.setAttribute("filter","url(#glow)");
+    g.appendChild(rect);
+
+    /* progress bar inside node */
+    if(s.pct>0&&s.pct<100){
+      const bar=document.createElementNS("http://www.w3.org/2000/svg","rect");
+      bar.setAttribute("x","2");bar.setAttribute("y",nodeH-5);
+      bar.setAttribute("width",Math.max(2,(nodeW-4)*s.pct/100));bar.setAttribute("height","3");
+      bar.setAttribute("rx","1.5");bar.setAttribute("fill",SCfill[s.status]);bar.setAttribute("opacity","0.6");
+      g.appendChild(bar);
+    }
+
+    const text=document.createElementNS("http://www.w3.org/2000/svg","text");
+    text.setAttribute("x",nodeW/2);text.setAttribute("y",nodeH/2+1);
+    text.setAttribute("text-anchor","middle");text.setAttribute("dominant-baseline","middle");
+    text.setAttribute("fill",SCfill[s.status]);
+    text.setAttribute("font-size","11");text.setAttribute("font-weight","600");
+    text.textContent=s.display_name;
+    g.appendChild(text);
+
+    /* status icon */
+    if(s.status==="done"){
+      const check=document.createElementNS("http://www.w3.org/2000/svg","text");
+      check.setAttribute("x",nodeW-10);check.setAttribute("y","12");
+      check.setAttribute("font-size","10");check.setAttribute("fill",SCfill.done);
+      check.textContent="\u2713";g.appendChild(check);
+    } else if(s.status==="running"){
+      const dot=document.createElementNS("http://www.w3.org/2000/svg","circle");
+      dot.setAttribute("cx",nodeW-8);dot.setAttribute("cy","9");dot.setAttribute("r","3");
+      dot.setAttribute("fill",SCfill.running);
+      const anim=document.createElementNS("http://www.w3.org/2000/svg","animate");
+      anim.setAttribute("attributeName","opacity");anim.setAttribute("values","1;.3;1");
+      anim.setAttribute("dur","1.5s");anim.setAttribute("repeatCount","indefinite");
+      dot.appendChild(anim);g.appendChild(dot);
+    }
+
+    /* expand icon for stages that have cards */
+    const hasCard=["gpu_stages","rosetta","pisa","prodigy","deeprank_a","deeprank_b"].includes(s.name);
+    if(hasCard){
+      const icon=document.createElementNS("http://www.w3.org/2000/svg","text");
+      icon.setAttribute("x",nodeW-12);icon.setAttribute("y",nodeH-8);
+      icon.setAttribute("font-size","10");icon.setAttribute("fill","var(--dim)");
+      icon.setAttribute("class","expand-icon");
+      icon.textContent=s.status==="running"?"\u25BC":"\u25B6";
+      g.appendChild(icon);
+    }
+
+    /* tooltip */
+    g.style.cursor="pointer";
+    g.addEventListener("mousemove",e=>{
+      let h=`<b style="color:${SCfill[s.status]}">${s.display_name}</b> &middot; ${s.status}`;
+      if(s.job_id) h+=`<br>Job: ${s.job_id}`;
+      if(s.total>0) h+=`<br>${fmt_num(s.done)} / ${fmt_num(s.total)} (${s.pct}%)`;
+      if(s.n_tasks>0) h+=`<br>${s.n_tasks} tasks`;
+      if(s.n_running>0) h+=` &middot; ${s.n_running} running`;
+      if(s.wall_seconds!=null) h+=`<br>Wall: ${fmt_time(s.wall_seconds)}`;
+      if(s.eta_seconds!=null) h+=`<br>ETA: ${fmt_eta(s.eta_seconds)}`;
+      showTip(e,h);
+    });
+    g.addEventListener("mouseleave",hideTip);
+    g.addEventListener("click",()=>{
+      const card=document.getElementById(`card-${s.name}`);
+      if(!card) return;
+      const icon=g.querySelector(".expand-icon");
+      const visible=card.style.display!=="none";
+      card.style.display=visible?"none":"";
+      if(icon) icon.textContent=visible?"\u25B6":"\u25BC";
+      if(!visible) card.scrollIntoView({behavior:"smooth",block:"center"});
+    });
+
+    svg.appendChild(g);
+  });
+
+  const wrap=el("div",{class:"flow-container"});
+  wrap.appendChild(svg);
+  sec.appendChild(wrap);
+})();
+
+/* ==================================================================
+   SECTION 2: Stage cards
+   ================================================================== */
+(function(){
+  const sec=qs("#sec-stages");
+  const grid=el("div",{class:"stage-grid"});
+
+  const CARD_STAGES=new Set(["gpu_stages","rosetta","pisa","prodigy","deeprank_a","deeprank_b"]);
+  D.stages.filter(s=>CARD_STAGES.has(s.name)).forEach(s=>{
+    const isRunning=s.status==="running";
+    const card=el("div",{class:`card s-${s.status}`,id:`card-${s.name}`,style:isRunning?"":"display:none"});
+
+    /* header */
+    const head=el("div",{class:"card-head"});
+    head.appendChild(el("h3",{text:s.display_name}));
+    head.appendChild(el("span",{class:`badge badge-${s.status}`,text:s.status}));
+    card.appendChild(head);
+
+    /* progress bar */
+    const bar=el("div",{class:"card-bar"});
+    bar.appendChild(el("div",{class:"fill",style:`width:${s.pct}%`}));
+    card.appendChild(bar);
+
+    /* stats row */
+    const stats=el("div",{class:"card-stats"});
+    if(s.job_id) stats.appendChild(el("div",{html:`JOB <span class="val">${s.job_id}</span>`}));
+    if(s.total>0) stats.appendChild(el("div",{html:`${fmt_num(s.done)} / ${fmt_num(s.total)} <span class="val">(${s.pct}%)</span>`}));
+    if(s.n_tasks>0){
+      let t=`${s.n_tasks} tasks`;
+      if(s.n_running>0) t+=` &middot; <span class="val" style="color:var(--cyan)">${s.n_running} running</span>`;
+      stats.appendChild(el("div",{html:t}));
+    }
+    if(s.wall_seconds!=null) stats.appendChild(el("div",{html:`WALL <span class="val">${fmt_time(s.wall_seconds)}</span>`}));
+    if(s.eta_seconds!=null) stats.appendChild(el("div",{html:`ETA <span class="val" style="color:var(--yellow)">${fmt_eta(s.eta_seconds)}</span>`}));
+    card.appendChild(stats);
+
+    /* per-task table */
+    if(s.tasks&&s.tasks.length>0){
+      const toggle=el("div",{class:"task-toggle",text:`\u25BC ${s.tasks.length} tasks`});
+      const taskDiv=el("div",{class:"task-list"});
+
+      const table=el("table",{class:"task-table"});
+      const thead=el("thead");
+      const hr=el("tr");
+      ["Task","Done","Host","Status","Resources"].forEach(h=>hr.appendChild(el("th",{text:h})));
+      thead.appendChild(hr);table.appendChild(thead);
+
+      const tbody=el("tbody");
+      const sortedTasks=[...s.tasks].sort((a,b)=>{const o={running:0,pending:1,done:2,failed:3};return(o[a.status]??4)-(o[b.status]??4)});
+      sortedTasks.forEach(t=>{
+        const tr=el("tr");
+        tr.appendChild(el("td",{text:String(t.task_id)}));
+        tr.appendChild(el("td",{text:t.total?`${fmt_num(t.done||0)}/${fmt_num(t.total)}`:"--"}));
+        tr.appendChild(el("td",{text:t.host||"--"}));
+        const stTd=el("td",{class:`st-${t.status}`,text:t.status});tr.appendChild(stTd);
+        const res=t.gpus!=null?`${t.gpus} GPU`:(t.cpus!=null?`${t.cpus} CPU`:"--");
+        tr.appendChild(el("td",{text:res}));
+        tbody.appendChild(tr);
+      });
+      table.appendChild(tbody);
+      taskDiv.appendChild(table);
+
+      toggle.addEventListener("click",()=>{
+        const collapsed=taskDiv.classList.toggle("collapsed");
+        toggle.textContent=(collapsed?"\u25B6":"\u25BC")+` ${s.tasks.length} tasks`;
+      });
+
+      card.appendChild(toggle);
+      card.appendChild(taskDiv);
+    }
+
+    grid.appendChild(card);
+  });
+
+  sec.appendChild(grid);
+})();
+
+/* ---- Live refresh via GitHub API (bypasses CDN cache) ---- */
+(function(){
+  if(typeof _API_OWNER==="undefined"||!_API_OWNER)return;
+  const apiUrl="https://api.github.com/repos/"+_API_OWNER+"/"+_API_REPO+"/git/refs/heads/"+(_API_BRANCH||"main");
+  const rawBase="https://raw.githubusercontent.com/"+_API_OWNER+"/"+_API_REPO+"/";
+  const dataPath=_API_RUN_ID+"/progress.json";
+  let lastSHA=null;
+  let checking=false;
+  async function check(){
+    if(checking)return;
+    checking=true;
+    try{
+      const r=await fetch(apiUrl);
+      if(r.status===403){console.warn("[dashboard] API rate limited, falling back to page reload");clearInterval(tid);location.reload();return}
+      if(!r.ok)return;
+      const ref=await r.json();
+      const sha=ref.object.sha;
+      if(sha===lastSHA)return;
+      lastSHA=sha;
+      const dr=await fetch(rawBase+sha+"/"+dataPath);
+      if(!dr.ok)return;
+      const fresh=await dr.json();
+      sessionStorage.setItem("_dash",JSON.stringify(fresh));
+      location.reload();
+    }catch(e){console.warn("[dashboard] refresh error:",e)}
+    finally{checking=false}
+  }
+  const tid=setInterval(check,60000);
+  setTimeout(check,5000);
+})();
+
+})();
+</script>
+</body>
+</html>
