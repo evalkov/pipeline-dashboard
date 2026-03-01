@@ -1,7 +1,7 @@
 {
   "run_id": "bmca_test_11",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/bmca_test_11",
-  "updated": "2026-03-01T19:15:29.219336+00:00",
+  "updated": "2026-03-01T19:15:43.919400+00:00",
   "config": {
     "total_designs": 10000,
     "target_pdb": "bcma",
@@ -3229,17 +3229,17 @@
     {
       "name": "rosetta",
       "display_name": "rosetta",
-      "status": "running",
+      "status": "done",
       "job_id": "51023958",
-      "done": 9775,
+      "done": 10000,
       "total": 10000,
-      "pct": 97.8,
+      "pct": 100.0,
       "n_tasks": 4,
-      "n_running": 2,
-      "wall_seconds": null,
-      "eta_seconds": 9.0,
+      "n_running": 0,
+      "wall_seconds": 392,
+      "eta_seconds": null,
       "started": "2026-03-01T19:09:11+00:00",
-      "ended": null,
+      "ended": "2026-03-01T19:15:43+00:00",
       "tasks": [
         {
           "task_id": 0,
@@ -3251,9 +3251,9 @@
         },
         {
           "task_id": 1,
-          "done": 2400,
+          "done": 2500,
           "total": 2500,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc002p",
           "cpus": 36
         },
@@ -3267,9 +3267,9 @@
         },
         {
           "task_id": 3,
-          "done": 2375,
+          "done": 2500,
           "total": 2500,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc003p",
           "cpus": 36
         }
@@ -3372,6 +3372,6 @@
       "tasks": []
     }
   ],
-  "pipeline_status": "running",
-  "pipeline_pct": 24.7
+  "pipeline_status": "pending",
+  "pipeline_pct": 25.0
 }
