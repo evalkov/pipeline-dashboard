@@ -1,7 +1,7 @@
 {
   "run_id": "bcma_test_6_new",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/bcma_test_6_new",
-  "updated": "2026-03-01T21:04:50.979095+00:00",
+  "updated": "2026-03-01T21:05:52.425378+00:00",
   "config": {
     "total_designs": 10000,
     "target_pdb": "bcma",
@@ -3748,7 +3748,7 @@
     {
       "name": "epitope",
       "display_name": "epitope",
-      "status": "running",
+      "status": "done",
       "job_id": "51025461",
       "done": 0,
       "total": 0,
@@ -3757,17 +3757,17 @@
       "n_running": 0,
       "wall_seconds": 0.0,
       "eta_seconds": null,
-      "started": "2026-03-01T21:04:48+00:00",
-      "ended": null,
+      "started": "2026-03-01T21:05:03+00:00",
+      "ended": "2026-03-01T21:05:03+00:00",
       "tasks": [
         {
           "task_id": 0,
-          "status": "running",
+          "status": "done",
           "host": null
         }
       ]
     }
   ],
-  "pipeline_status": "running",
-  "pipeline_pct": 87.5
+  "pipeline_status": "done",
+  "pipeline_pct": 100.0
 }
