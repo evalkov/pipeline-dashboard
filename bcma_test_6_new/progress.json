@@ -1,7 +1,7 @@
 {
   "run_id": "bcma_test_6_new",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/bcma_test_6_new",
-  "updated": "2026-03-01T20:22:53.071569+00:00",
+  "updated": "2026-03-01T20:23:33.827252+00:00",
   "config": {
     "total_designs": 10000,
     "target_pdb": "bcma",
@@ -3386,18 +3386,47 @@
     {
       "name": "pisa",
       "display_name": "pisa",
-      "status": "pending",
-      "job_id": null,
-      "done": 0,
-      "total": 0,
-      "pct": 0.0,
-      "n_tasks": 0,
+      "status": "done",
+      "job_id": "51025235",
+      "done": 10000,
+      "total": 10000,
+      "pct": 100.0,
+      "n_tasks": 4,
       "n_running": 0,
-      "wall_seconds": null,
+      "wall_seconds": 15,
       "eta_seconds": null,
       "started": null,
       "ended": null,
-      "tasks": []
+      "tasks": [
+        {
+          "task_id": 0,
+          "done": 2500,
+          "total": 2500,
+          "status": "done",
+          "host": "fsitgl-hpc001p.ncifcrf.gov"
+        },
+        {
+          "task_id": 1,
+          "done": 2500,
+          "total": 2500,
+          "status": "done",
+          "host": "fsitgl-hpc002p.ncifcrf.gov"
+        },
+        {
+          "task_id": 2,
+          "done": 2500,
+          "total": 2500,
+          "status": "done",
+          "host": "fsitgl-hpc002p.ncifcrf.gov"
+        },
+        {
+          "task_id": 3,
+          "done": 2500,
+          "total": 2500,
+          "status": "done",
+          "host": "fsitgl-hpc003p.ncifcrf.gov"
+        }
+      ]
     },
     {
       "name": "prodigy",
@@ -3481,5 +3510,5 @@
     }
   ],
   "pipeline_status": "pending",
-  "pipeline_pct": 25.0
+  "pipeline_pct": 37.5
 }
