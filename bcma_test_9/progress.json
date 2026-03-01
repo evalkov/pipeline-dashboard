@@ -1,12 +1,11 @@
 {
   "run_id": "bcma_test_9",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/bcma_test_9",
-  "updated": "2026-03-01T16:53:27.539893+00:00",
+  "updated": "2026-03-01T16:53:36.257484+00:00",
   "config": {
     "total_designs": 1000,
     "target_pdb": "bcma",
-    "gpu_mode": "streaming",
-    "refresh_interval": 10
+    "gpu_mode": "streaming"
   },
   "stages": [
     {
@@ -371,6 +370,38 @@
       ]
     },
     {
+      "name": "qv2pdb",
+      "display_name": "qv2pdb",
+      "status": "pending",
+      "job_id": null,
+      "done": 0,
+      "total": 0,
+      "pct": 0.0,
+      "n_tasks": 0,
+      "n_running": 0,
+      "wall_seconds": null,
+      "eta_seconds": null,
+      "started": null,
+      "ended": null,
+      "tasks": []
+    },
+    {
+      "name": "qv_scores",
+      "display_name": "qv_scores",
+      "status": "pending",
+      "job_id": null,
+      "done": 0,
+      "total": 0,
+      "pct": 0.0,
+      "n_tasks": 0,
+      "n_running": 0,
+      "wall_seconds": null,
+      "eta_seconds": null,
+      "started": null,
+      "ended": null,
+      "tasks": []
+    },
+    {
       "name": "pisa",
       "display_name": "pisa",
       "status": "done",
@@ -518,5 +549,5 @@
     }
   ],
   "pipeline_status": "pending",
-  "pipeline_pct": 75.0
+  "pipeline_pct": 60.0
 }
