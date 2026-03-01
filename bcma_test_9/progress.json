@@ -1,12 +1,11 @@
 {
   "run_id": "bcma_test_9",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/bcma_test_9",
-  "updated": "2026-03-01T16:49:23.039194+00:00",
+  "updated": "2026-03-01T16:49:32.537349+00:00",
   "config": {
     "total_designs": 1000,
     "target_pdb": "bcma",
-    "gpu_mode": "streaming",
-    "refresh_interval": 10
+    "gpu_mode": "streaming"
   },
   "stages": [
     {
@@ -371,6 +370,38 @@
       ]
     },
     {
+      "name": "qv2pdb",
+      "display_name": "qv2pdb",
+      "status": "pending",
+      "job_id": null,
+      "done": 0,
+      "total": 0,
+      "pct": 0.0,
+      "n_tasks": 0,
+      "n_running": 0,
+      "wall_seconds": null,
+      "eta_seconds": null,
+      "started": null,
+      "ended": null,
+      "tasks": []
+    },
+    {
+      "name": "qv_scores",
+      "display_name": "qv_scores",
+      "status": "pending",
+      "job_id": null,
+      "done": 0,
+      "total": 0,
+      "pct": 0.0,
+      "n_tasks": 0,
+      "n_running": 0,
+      "wall_seconds": null,
+      "eta_seconds": null,
+      "started": null,
+      "ended": null,
+      "tasks": []
+    },
+    {
       "name": "pisa",
       "display_name": "pisa",
       "status": "done",
@@ -423,19 +454,19 @@
       "display_name": "deeprank_a",
       "status": "running",
       "job_id": "51023116",
-      "done": 778,
+      "done": 810,
       "total": 1000,
-      "pct": 77.8,
+      "pct": 81.0,
       "n_tasks": 3,
       "n_running": 2,
       "wall_seconds": null,
-      "eta_seconds": 78.0,
+      "eta_seconds": 66.0,
       "started": "2026-03-01T16:44:49+00:00",
       "ended": null,
       "tasks": [
         {
           "task_id": 0,
-          "done": 304,
+          "done": 320,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc097p",
@@ -443,7 +474,7 @@
         },
         {
           "task_id": 1,
-          "done": 274,
+          "done": 290,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc105p",
@@ -509,5 +540,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 59.7
+  "pipeline_pct": 48.1
 }
