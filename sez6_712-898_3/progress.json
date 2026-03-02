@@ -1,7 +1,7 @@
 {
   "run_id": "sez6_712-898_3",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/sez6_712-898_3",
-  "updated": "2026-03-02T00:06:40.737635+00:00",
+  "updated": "2026-03-02T00:07:42.581512+00:00",
   "config": {
     "total_designs": 1000,
     "target_pdb": "sez6_712-898",
@@ -373,59 +373,91 @@
     {
       "name": "pisa",
       "display_name": "pisa",
-      "status": "running",
+      "status": "done",
       "job_id": "51033370",
-      "done": 0,
+      "done": 1000,
       "total": 1000,
-      "pct": 0.0,
+      "pct": 100.0,
       "n_tasks": 1,
-      "n_running": 1,
-      "wall_seconds": null,
+      "n_running": 0,
+      "wall_seconds": 10,
       "eta_seconds": null,
-      "started": "2026-03-02T00:06:39+00:00",
+      "started": null,
       "ended": null,
       "tasks": [
         {
           "task_id": 0,
-          "done": 0,
+          "done": 1000,
           "total": 1000,
-          "status": "running",
-          "host": "fsitgl-hpc143p",
-          "cpus": 36
+          "status": "done",
+          "host": "fsitgl-hpc143p.ncifcrf.gov"
         }
       ]
     },
     {
       "name": "prodigy",
       "display_name": "prodigy",
-      "status": "pending",
-      "job_id": null,
-      "done": 0,
-      "total": 0,
-      "pct": 0.0,
-      "n_tasks": 0,
+      "status": "done",
+      "job_id": "51033372",
+      "done": 1000,
+      "total": 1000,
+      "pct": 100.0,
+      "n_tasks": 1,
       "n_running": 0,
-      "wall_seconds": null,
+      "wall_seconds": 18,
       "eta_seconds": null,
       "started": null,
       "ended": null,
-      "tasks": []
+      "tasks": [
+        {
+          "task_id": 0,
+          "done": 1000,
+          "total": 1000,
+          "status": "done",
+          "host": "fsitgl-hpc149p.ncifcrf.gov"
+        }
+      ]
     },
     {
       "name": "deeprank_a",
       "display_name": "deeprank_a",
-      "status": "pending",
-      "job_id": null,
+      "status": "running",
+      "job_id": "51033375",
       "done": 0,
-      "total": 0,
+      "total": 1000,
       "pct": 0.0,
-      "n_tasks": 0,
-      "n_running": 0,
+      "n_tasks": 3,
+      "n_running": 3,
       "wall_seconds": null,
       "eta_seconds": null,
-      "started": null,
+      "started": "2026-03-02T00:07:18+00:00",
       "ended": null,
-      "tasks": []
+      "tasks": [
+        {
+          "task_id": 0,
+          "done": 0,
+          "total": 0,
+          "status": "running",
+          "host": "fsitgl-hpc105p",
+          "cpus": 4
+        },
+        {
+          "task_id": 1,
+          "done": 0,
+          "total": 0,
+          "status": "running",
+          "host": "fsitgl-hpc109p",
+          "cpus": 4
+        },
+        {
+          "task_id": 2,
+          "done": 0,
+          "total": 0,
+          "status": "running",
+          "host": "fsitgl-hpc134p",
+          "cpus": 4
+        }
+      ]
     },
     {
       "name": "deeprank_b",
@@ -477,5 +509,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 25.0
+  "pipeline_pct": 50.0
 }
