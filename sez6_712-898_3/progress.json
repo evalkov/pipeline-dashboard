@@ -1,7 +1,7 @@
 {
   "run_id": "sez6_712-898_3",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/sez6_712-898_3",
-  "updated": "2026-03-02T00:00:31.965740+00:00",
+  "updated": "2026-03-02T00:01:33.456821+00:00",
   "config": {
     "total_designs": 1000,
     "target_pdb": "sez6_712-898",
@@ -14,13 +14,13 @@
       "display_name": "rfantibody",
       "status": "running",
       "job_id": "51033366",
-      "done": 945,
+      "done": 982,
       "total": 1000,
-      "pct": 94.5,
+      "pct": 98.2,
       "n_tasks": 40,
-      "n_running": 8,
+      "n_running": 7,
       "wall_seconds": null,
-      "eta_seconds": 36.0,
+      "eta_seconds": 12.0,
       "started": "2026-03-01T23:50:19+00:00",
       "ended": null,
       "tasks": [
@@ -282,15 +282,15 @@
         },
         {
           "task_id": 32,
-          "done": 19,
+          "done": 25,
           "total": 25,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc176p.ncifcrf.gov",
           "gpus": 1
         },
         {
           "task_id": 33,
-          "done": 18,
+          "done": 23,
           "total": 25,
           "status": "running",
           "host": "fsitgl-hpc176p.ncifcrf.gov",
@@ -298,7 +298,7 @@
         },
         {
           "task_id": 34,
-          "done": 19,
+          "done": 24,
           "total": 25,
           "status": "running",
           "host": "fsitgl-hpc177p.ncifcrf.gov",
@@ -306,7 +306,7 @@
         },
         {
           "task_id": 35,
-          "done": 18,
+          "done": 23,
           "total": 25,
           "status": "running",
           "host": "fsitgl-hpc177p.ncifcrf.gov",
@@ -314,7 +314,7 @@
         },
         {
           "task_id": 36,
-          "done": 17,
+          "done": 21,
           "total": 25,
           "status": "running",
           "host": "fsitgl-hpc174p.ncifcrf.gov",
@@ -322,7 +322,7 @@
         },
         {
           "task_id": 37,
-          "done": 18,
+          "done": 22,
           "total": 25,
           "status": "running",
           "host": "fsitgl-hpc175p.ncifcrf.gov",
@@ -330,7 +330,7 @@
         },
         {
           "task_id": 38,
-          "done": 18,
+          "done": 21,
           "total": 25,
           "status": "running",
           "host": "fsitgl-hpc185p.ncifcrf.gov",
@@ -338,7 +338,7 @@
         },
         {
           "task_id": 39,
-          "done": 18,
+          "done": 23,
           "total": 25,
           "status": "running",
           "host": "fsitgl-hpc175p.ncifcrf.gov",
@@ -460,5 +460,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 11.8
+  "pipeline_pct": 12.3
 }
