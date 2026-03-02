@@ -1,7 +1,7 @@
 {
   "run_id": "sez6_712-898_3",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/sez6_712-898_3",
-  "updated": "2026-03-02T00:15:53.698580+00:00",
+  "updated": "2026-03-02T00:16:54.879913+00:00",
   "config": {
     "total_designs": 1000,
     "target_pdb": "sez6_712-898",
@@ -421,31 +421,31 @@
     {
       "name": "deeprank_a",
       "display_name": "deeprank_a",
-      "status": "running",
+      "status": "done",
       "job_id": "51033375",
-      "done": 995,
+      "done": 1000,
       "total": 1000,
-      "pct": 99.5,
+      "pct": 100.0,
       "n_tasks": 3,
-      "n_running": 2,
-      "wall_seconds": null,
-      "eta_seconds": 3.0,
+      "n_running": 0,
+      "wall_seconds": 547,
+      "eta_seconds": null,
       "started": "2026-03-02T00:07:18+00:00",
-      "ended": null,
+      "ended": "2026-03-02T00:16:25+00:00",
       "tasks": [
         {
           "task_id": 0,
           "done": 400,
           "total": 400,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc105p",
           "cpus": 4
         },
         {
           "task_id": 1,
-          "done": 395,
+          "done": 400,
           "total": 400,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc109p",
           "cpus": 4
         },
@@ -462,18 +462,27 @@
     {
       "name": "deeprank_b",
       "display_name": "deeprank_b",
-      "status": "pending",
-      "job_id": null,
+      "status": "running",
+      "job_id": "51033376",
       "done": 0,
-      "total": 0,
+      "total": 3,
       "pct": 0.0,
-      "n_tasks": 0,
-      "n_running": 0,
+      "n_tasks": 1,
+      "n_running": 1,
       "wall_seconds": null,
       "eta_seconds": null,
-      "started": null,
+      "started": "2026-03-02T00:16:29+00:00",
       "ended": null,
-      "tasks": []
+      "tasks": [
+        {
+          "task_id": 0,
+          "done": 0,
+          "total": 3,
+          "status": "running",
+          "host": "fsitgl-hpc185p",
+          "gpus": 4
+        }
+      ]
     },
     {
       "name": "combine_scores",
@@ -509,5 +518,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 62.4
+  "pipeline_pct": 62.5
 }
