@@ -1,7 +1,7 @@
 {
   "run_id": "bcma_test_13",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/bcma_test_13",
-  "updated": "2026-03-02T00:50:31.863439+00:00",
+  "updated": "2026-03-02T00:51:33.564840+00:00",
   "config": {
     "total_designs": 1000,
     "target_pdb": "bcma",
@@ -487,36 +487,48 @@
     {
       "name": "combine_scores",
       "display_name": "combine_scores",
-      "status": "pending",
-      "job_id": null,
+      "status": "done",
+      "job_id": "51033478",
       "done": 0,
       "total": 0,
       "pct": 0.0,
-      "n_tasks": 0,
+      "n_tasks": 1,
       "n_running": 0,
-      "wall_seconds": null,
+      "wall_seconds": 0.0,
       "eta_seconds": null,
-      "started": null,
-      "ended": null,
-      "tasks": []
+      "started": "2026-03-02T00:50:34+00:00",
+      "ended": "2026-03-02T00:50:34+00:00",
+      "tasks": [
+        {
+          "task_id": 0,
+          "status": "done",
+          "host": null
+        }
+      ]
     },
     {
       "name": "epitope",
       "display_name": "epitope",
-      "status": "pending",
-      "job_id": null,
+      "status": "done",
+      "job_id": "51033479",
       "done": 0,
       "total": 0,
       "pct": 0.0,
-      "n_tasks": 0,
+      "n_tasks": 1,
       "n_running": 0,
-      "wall_seconds": null,
+      "wall_seconds": 0.0,
       "eta_seconds": null,
-      "started": null,
-      "ended": null,
-      "tasks": []
+      "started": "2026-03-02T00:50:48+00:00",
+      "ended": "2026-03-02T00:50:48+00:00",
+      "tasks": [
+        {
+          "task_id": 0,
+          "status": "done",
+          "host": null
+        }
+      ]
     }
   ],
-  "pipeline_status": "pending",
-  "pipeline_pct": 75.0
+  "pipeline_status": "done",
+  "pipeline_pct": 100.0
 }
