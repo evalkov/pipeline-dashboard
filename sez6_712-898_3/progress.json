@@ -1,7 +1,7 @@
 {
   "run_id": "sez6_712-898_3",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/sez6_712-898_3",
-  "updated": "2026-03-02T00:10:46.425156+00:00",
+  "updated": "2026-03-02T00:11:47.747227+00:00",
   "config": {
     "total_designs": 1000,
     "target_pdb": "sez6_712-898",
@@ -423,19 +423,19 @@
       "display_name": "deeprank_a",
       "status": "running",
       "job_id": "51033375",
-      "done": 335,
+      "done": 498,
       "total": 1000,
-      "pct": 33.5,
+      "pct": 49.8,
       "n_tasks": 3,
-      "n_running": 3,
+      "n_running": 2,
       "wall_seconds": null,
-      "eta_seconds": 414.0,
+      "eta_seconds": 272.0,
       "started": "2026-03-02T00:07:18+00:00",
       "ended": null,
       "tasks": [
         {
           "task_id": 0,
-          "done": 81,
+          "done": 143,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc105p",
@@ -443,7 +443,7 @@
         },
         {
           "task_id": 1,
-          "done": 85,
+          "done": 155,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc109p",
@@ -451,9 +451,9 @@
         },
         {
           "task_id": 2,
-          "done": 169,
+          "done": 200,
           "total": 200,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc134p",
           "cpus": 4
         }
@@ -509,5 +509,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 54.2
+  "pipeline_pct": 56.2
 }
