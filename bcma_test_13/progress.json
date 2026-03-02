@@ -1,7 +1,7 @@
 {
   "run_id": "bcma_test_13",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/bcma_test_13",
-  "updated": "2026-03-02T00:45:22.472595+00:00",
+  "updated": "2026-03-02T00:46:23.959158+00:00",
   "config": {
     "total_designs": 1000,
     "target_pdb": "bcma",
@@ -423,19 +423,19 @@
       "display_name": "deeprank_a",
       "status": "running",
       "job_id": "51033443",
-      "done": 147,
+      "done": 436,
       "total": 1000,
-      "pct": 14.7,
+      "pct": 43.6,
       "n_tasks": 3,
       "n_running": 3,
       "wall_seconds": null,
-      "eta_seconds": 631.0,
+      "eta_seconds": 221.0,
       "started": "2026-03-02T00:43:33+00:00",
       "ended": null,
       "tasks": [
         {
           "task_id": 0,
-          "done": 41,
+          "done": 137,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc105p",
@@ -443,7 +443,7 @@
         },
         {
           "task_id": 1,
-          "done": 41,
+          "done": 137,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc109p",
@@ -451,7 +451,7 @@
         },
         {
           "task_id": 2,
-          "done": 65,
+          "done": 162,
           "total": 200,
           "status": "running",
           "host": "fsitgl-hpc111p",
@@ -509,5 +509,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 51.8
+  "pipeline_pct": 55.5
 }
