@@ -1,7 +1,7 @@
 {
   "run_id": "bcma_test_15",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/bcma_test_15",
-  "updated": "2026-03-02T11:46:53.159935+00:00",
+  "updated": "2026-03-02T11:47:59.801583+00:00",
   "config": {
     "total_designs": 100000,
     "target_pdb": "bcma",
@@ -32031,13 +32031,13 @@
       "display_name": "rosetta",
       "status": "running",
       "job_id": "51033977",
-      "done": 98874,
+      "done": 99223,
       "total": 99997,
-      "pct": 98.9,
+      "pct": 99.2,
       "n_tasks": 40,
-      "n_running": 2,
+      "n_running": 1,
       "wall_seconds": null,
-      "eta_seconds": 17.0,
+      "eta_seconds": 13.0,
       "started": "2026-03-02T11:21:13+00:00",
       "ended": null,
       "tasks": [
@@ -32347,15 +32347,15 @@
         },
         {
           "task_id": 38,
-          "done": 2450,
+          "done": 2499,
           "total": 2499,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc001p",
           "cpus": 36
         },
         {
           "task_id": 39,
-          "done": 1425,
+          "done": 1725,
           "total": 2499,
           "status": "running",
           "host": "fsitgl-hpc108p",
