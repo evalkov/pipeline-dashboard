@@ -1,7 +1,7 @@
 {
   "run_id": "sez6_712-898_3",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/sez6_712-898_3",
-  "updated": "2026-03-02T00:03:36.867303+00:00",
+  "updated": "2026-03-02T00:04:38.155426+00:00",
   "config": {
     "total_designs": 1000,
     "target_pdb": "sez6_712-898",
@@ -351,19 +351,19 @@
       "display_name": "rosetta",
       "status": "running",
       "job_id": "51033368",
-      "done": 125,
+      "done": 425,
       "total": 1000,
-      "pct": 12.5,
+      "pct": 42.5,
       "n_tasks": 1,
       "n_running": 1,
       "wall_seconds": null,
-      "eta_seconds": 447.0,
+      "eta_seconds": 169.0,
       "started": "2026-03-02T00:02:33+00:00",
       "ended": null,
       "tasks": [
         {
           "task_id": 0,
-          "done": 125,
+          "done": 425,
           "total": 1000,
           "status": "running",
           "host": "fsitgl-hpc143p",
@@ -469,5 +469,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 14.1
+  "pipeline_pct": 17.8
 }
