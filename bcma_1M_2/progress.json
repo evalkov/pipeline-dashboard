@@ -1,7 +1,7 @@
 {
   "run_id": "bcma_1M_2",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/bcma_1M_2",
-  "updated": "2026-03-05T04:14:24.621823+00:00",
+  "updated": "2026-03-05T04:15:57.640740+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "bcma",
@@ -163415,17 +163415,17 @@
     {
       "name": "prodigy",
       "display_name": "prodigy",
-      "status": "running",
+      "status": "done",
       "job_id": "51039054",
-      "done": 209525,
+      "done": 219385,
       "total": 985950,
-      "pct": 21.3,
-      "n_tasks": 86,
-      "n_running": 1,
-      "wall_seconds": null,
-      "eta_seconds": 6607.0,
+      "pct": 22.3,
+      "n_tasks": 89,
+      "n_running": 0,
+      "wall_seconds": 1850,
+      "eta_seconds": null,
       "started": "2026-03-05T03:44:11+00:00",
-      "ended": null,
+      "ended": "2026-03-05T04:15:01+00:00",
       "tasks": [
         {
           "task_id": 0,
@@ -164029,9 +164029,9 @@
         },
         {
           "task_id": 75,
-          "done": 0,
+          "done": 2465,
           "total": 2465,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc121p",
           "cpus": 36
         },
@@ -164113,6 +164113,30 @@
           "total": 2465,
           "status": "done",
           "host": "fsitgl-hpc113p",
+          "cpus": 36
+        },
+        {
+          "task_id": 86,
+          "done": 2465,
+          "total": 2465,
+          "status": "done",
+          "host": "fsitgl-hpc048p",
+          "cpus": 36
+        },
+        {
+          "task_id": 87,
+          "done": 2465,
+          "total": 2465,
+          "status": "done",
+          "host": "fsitgl-hpc105p",
+          "cpus": 36
+        },
+        {
+          "task_id": 88,
+          "done": 2465,
+          "total": 2465,
+          "status": "done",
+          "host": "fsitgl-hpc141p",
           "cpus": 36
         }
       ]
@@ -164255,6 +164279,6 @@
       "tasks": []
     }
   ],
-  "pipeline_status": "running",
-  "pipeline_pct": 52.7
+  "pipeline_status": "pending",
+  "pipeline_pct": 62.5
 }
