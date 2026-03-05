@@ -1,7 +1,7 @@
 {
   "run_id": "bcma_1M_2",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/bcma_1M_2",
-  "updated": "2026-03-05T04:48:35.440805+00:00",
+  "updated": "2026-03-05T04:50:08.642915+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "bcma",
@@ -163417,15 +163417,15 @@
       "display_name": "prodigy",
       "status": "done",
       "job_id": "51039054",
-      "done": 428910,
+      "done": 441235,
       "total": 985950,
-      "pct": 43.5,
-      "n_tasks": 174,
+      "pct": 44.8,
+      "n_tasks": 179,
       "n_running": 0,
-      "wall_seconds": 3848,
+      "wall_seconds": 3945,
       "eta_seconds": null,
       "started": "2026-03-05T03:44:11+00:00",
-      "ended": "2026-03-05T04:48:19+00:00",
+      "ended": "2026-03-05T04:49:56+00:00",
       "tasks": [
         {
           "task_id": 0,
@@ -164818,23 +164818,63 @@
           "status": "done",
           "host": "fsitgl-hpc103p",
           "cpus": 36
+        },
+        {
+          "task_id": 174,
+          "done": 2465,
+          "total": 2465,
+          "status": "done",
+          "host": "fsitgl-hpc039p",
+          "cpus": 36
+        },
+        {
+          "task_id": 175,
+          "done": 2465,
+          "total": 2465,
+          "status": "done",
+          "host": "fsitgl-hpc042p",
+          "cpus": 36
+        },
+        {
+          "task_id": 176,
+          "done": 2465,
+          "total": 2465,
+          "status": "done",
+          "host": "fsitgl-hpc041p",
+          "cpus": 36
+        },
+        {
+          "task_id": 177,
+          "done": 2465,
+          "total": 2465,
+          "status": "done",
+          "host": "fsitgl-hpc140p",
+          "cpus": 36
+        },
+        {
+          "task_id": 178,
+          "done": 2465,
+          "total": 2465,
+          "status": "done",
+          "host": "fsitgl-hpc119p",
+          "cpus": 36
         }
       ]
     },
     {
       "name": "deeprank_a",
       "display_name": "deeprank_a",
-      "status": "done",
+      "status": "running",
       "job_id": "51039057",
       "done": 6800,
       "total": 1000000,
       "pct": 0.7,
-      "n_tasks": 17,
-      "n_running": 0,
-      "wall_seconds": 3482,
-      "eta_seconds": null,
+      "n_tasks": 18,
+      "n_running": 1,
+      "wall_seconds": null,
+      "eta_seconds": 595046.0,
       "started": "2026-03-05T03:41:43+00:00",
-      "ended": "2026-03-05T04:39:45+00:00",
+      "ended": null,
       "tasks": [
         {
           "task_id": 0,
@@ -164971,6 +165011,14 @@
           "status": "done",
           "host": "fsitgl-hpc107p",
           "cpus": 4
+        },
+        {
+          "task_id": 17,
+          "done": 0,
+          "total": 0,
+          "status": "running",
+          "host": "fsitgl-hpc107p",
+          "cpus": 4
         }
       ]
     },
@@ -165023,6 +165071,6 @@
       "tasks": []
     }
   ],
-  "pipeline_status": "pending",
-  "pipeline_pct": 62.5
+  "pipeline_status": "running",
+  "pipeline_pct": 50.1
 }
