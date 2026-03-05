@@ -1,7 +1,7 @@
 {
   "run_id": "bcma_1M_2",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/bcma_1M_2",
-  "updated": "2026-03-05T04:34:36.251801+00:00",
+  "updated": "2026-03-05T04:36:10.192193+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "bcma",
@@ -164514,13 +164514,13 @@
       "display_name": "deeprank_a",
       "status": "running",
       "job_id": "51039057",
-      "done": 4930,
+      "done": 5841,
       "total": 1000000,
-      "pct": 0.5,
+      "pct": 0.6,
       "n_tasks": 17,
-      "n_running": 7,
+      "n_running": 6,
       "wall_seconds": null,
-      "eta_seconds": 634133.0,
+      "eta_seconds": 550580.0,
       "started": "2026-03-05T03:41:43+00:00",
       "ended": null,
       "tasks": [
@@ -164598,7 +164598,7 @@
         },
         {
           "task_id": 9,
-          "done": 138,
+          "done": 298,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc089p",
@@ -164606,15 +164606,15 @@
         },
         {
           "task_id": 10,
-          "done": 337,
+          "done": 400,
           "total": 400,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc089p",
           "cpus": 4
         },
         {
           "task_id": 11,
-          "done": 150,
+          "done": 296,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc089p",
@@ -164622,7 +164622,7 @@
         },
         {
           "task_id": 12,
-          "done": 126,
+          "done": 284,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc089p",
@@ -164638,7 +164638,7 @@
         },
         {
           "task_id": 14,
-          "done": 179,
+          "done": 342,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc107p",
@@ -164646,7 +164646,7 @@
         },
         {
           "task_id": 15,
-          "done": 0,
+          "done": 134,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc107p",
@@ -164654,8 +164654,8 @@
         },
         {
           "task_id": 16,
-          "done": 0,
-          "total": 0,
+          "done": 87,
+          "total": 400,
           "status": "running",
           "host": "fsitgl-hpc107p",
           "cpus": 4
