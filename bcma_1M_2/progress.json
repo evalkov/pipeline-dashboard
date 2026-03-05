@@ -1,7 +1,7 @@
 {
   "run_id": "bcma_1M_2",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/bcma_1M_2",
-  "updated": "2026-03-05T06:05:06.107995+00:00",
+  "updated": "2026-03-05T06:06:40.941348+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "bcma",
@@ -166418,13 +166418,13 @@
       "display_name": "deeprank_a",
       "status": "running",
       "job_id": "51039057",
-      "done": 15388,
+      "done": 16097,
       "total": 1000000,
-      "pct": 1.5,
+      "pct": 1.6,
       "n_tasks": 43,
       "n_running": 6,
       "wall_seconds": null,
-      "eta_seconds": 548511.0,
+      "eta_seconds": 529615.0,
       "started": "2026-03-05T03:41:43+00:00",
       "ended": null,
       "tasks": [
@@ -166726,7 +166726,7 @@
         },
         {
           "task_id": 37,
-          "done": 184,
+          "done": 346,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc089p",
@@ -166734,7 +166734,7 @@
         },
         {
           "task_id": 38,
-          "done": 202,
+          "done": 366,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc107p",
@@ -166742,7 +166742,7 @@
         },
         {
           "task_id": 39,
-          "done": 115,
+          "done": 242,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc107p",
@@ -166750,7 +166750,7 @@
         },
         {
           "task_id": 40,
-          "done": 87,
+          "done": 229,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc089p",
@@ -166758,16 +166758,16 @@
         },
         {
           "task_id": 41,
-          "done": 0,
-          "total": 0,
+          "done": 61,
+          "total": 400,
           "status": "running",
           "host": "fsitgl-hpc107p",
           "cpus": 4
         },
         {
           "task_id": 42,
-          "done": 0,
-          "total": 0,
+          "done": 53,
+          "total": 400,
           "status": "running",
           "host": "fsitgl-hpc089p",
           "cpus": 4
