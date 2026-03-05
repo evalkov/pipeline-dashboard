@@ -1,7 +1,7 @@
 {
   "run_id": "bcma_1M_2",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/bcma_1M_2",
-  "updated": "2026-03-05T05:49:31.290435+00:00",
+  "updated": "2026-03-05T05:51:06.626159+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "bcma",
@@ -163417,15 +163417,15 @@
       "display_name": "prodigy",
       "status": "done",
       "job_id": "51039054",
-      "done": 808520,
+      "done": 823310,
       "total": 985950,
-      "pct": 82.0,
-      "n_tasks": 328,
+      "pct": 83.5,
+      "n_tasks": 334,
       "n_running": 0,
-      "wall_seconds": 7373,
+      "wall_seconds": 7561,
       "eta_seconds": null,
       "started": "2026-03-05T03:44:11+00:00",
-      "ended": "2026-03-05T05:47:04+00:00",
+      "ended": "2026-03-05T05:50:12+00:00",
       "tasks": [
         {
           "task_id": 0,
@@ -166049,6 +166049,54 @@
           "total": 2465,
           "status": "done",
           "host": "fsitgl-hpc103p",
+          "cpus": 36
+        },
+        {
+          "task_id": 328,
+          "done": 2465,
+          "total": 2465,
+          "status": "done",
+          "host": "fsitgl-hpc048p",
+          "cpus": 36
+        },
+        {
+          "task_id": 329,
+          "done": 2465,
+          "total": 2465,
+          "status": "done",
+          "host": "fsitgl-hpc109p",
+          "cpus": 36
+        },
+        {
+          "task_id": 330,
+          "done": 2465,
+          "total": 2465,
+          "status": "done",
+          "host": "fsitgl-hpc105p",
+          "cpus": 36
+        },
+        {
+          "task_id": 331,
+          "done": 2465,
+          "total": 2465,
+          "status": "done",
+          "host": "fsitgl-hpc041p",
+          "cpus": 36
+        },
+        {
+          "task_id": 332,
+          "done": 2465,
+          "total": 2465,
+          "status": "done",
+          "host": "fsitgl-hpc111p",
+          "cpus": 36
+        },
+        {
+          "task_id": 333,
+          "done": 2465,
+          "total": 2465,
+          "status": "done",
+          "host": "fsitgl-hpc113p",
           "cpus": 36
         }
       ]
