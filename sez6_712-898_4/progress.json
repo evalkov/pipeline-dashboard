@@ -1,7 +1,7 @@
 {
   "run_id": "sez6_712-898_4",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/sez6_712-898_4",
-  "updated": "2026-03-06T15:41:29.543198+00:00",
+  "updated": "2026-03-06T15:42:36.594703+00:00",
   "config": {
     "total_designs": 100000,
     "target_pdb": "sez6_712-898",
@@ -35058,18 +35058,24 @@
     {
       "name": "combine_scores",
       "display_name": "scores",
-      "status": "pending",
-      "job_id": null,
+      "status": "running",
+      "job_id": "51088060",
       "done": 0,
       "total": 0,
       "pct": 0.0,
-      "n_tasks": 0,
+      "n_tasks": 1,
       "n_running": 0,
-      "wall_seconds": null,
+      "wall_seconds": 0.0,
       "eta_seconds": null,
-      "started": null,
+      "started": "2026-03-06T15:41:45+00:00",
       "ended": null,
-      "tasks": []
+      "tasks": [
+        {
+          "task_id": 0,
+          "status": "running",
+          "host": null
+        }
+      ]
     },
     {
       "name": "epitope",
@@ -35088,6 +35094,6 @@
       "tasks": []
     }
   ],
-  "pipeline_status": "pending",
+  "pipeline_status": "running",
   "pipeline_pct": 75.0
 }
