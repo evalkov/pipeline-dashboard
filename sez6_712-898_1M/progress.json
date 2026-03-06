@@ -1,7 +1,7 @@
 {
   "run_id": "sez6_712-898_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/sez6_712-898_1M",
-  "updated": "2026-03-06T17:56:27.818621+00:00",
+  "updated": "2026-03-06T17:57:29.130303+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "sez6_712-898",
@@ -12,18 +12,99 @@
     {
       "name": "rfantibody",
       "display_name": "rfantibody",
-      "status": "pending",
-      "job_id": null,
+      "status": "running",
+      "job_id": "51094456",
       "done": 0,
-      "total": 0,
+      "total": 1000000,
       "pct": 0.0,
-      "n_tasks": 0,
-      "n_running": 0,
+      "n_tasks": 10,
+      "n_running": 10,
       "wall_seconds": null,
       "eta_seconds": null,
-      "started": null,
+      "started": "2026-03-06T17:57:24+00:00",
       "ended": null,
-      "tasks": []
+      "tasks": [
+        {
+          "task_id": 0,
+          "done": 0,
+          "total": 50,
+          "status": "running",
+          "host": "fsitgl-hpc018p.ncifcrf.gov",
+          "gpus": 1
+        },
+        {
+          "task_id": 1,
+          "done": 0,
+          "total": 50,
+          "status": "running",
+          "host": "fsitgl-hpc018p.ncifcrf.gov",
+          "gpus": 1
+        },
+        {
+          "task_id": 4,
+          "done": 0,
+          "total": 50,
+          "status": "running",
+          "host": "fsitgl-hpc022p.ncifcrf.gov",
+          "gpus": 1
+        },
+        {
+          "task_id": 5,
+          "done": 0,
+          "total": 50,
+          "status": "running",
+          "host": "fsitgl-hpc022p.ncifcrf.gov",
+          "gpus": 1
+        },
+        {
+          "task_id": 7,
+          "done": 0,
+          "total": 50,
+          "status": "running",
+          "host": "fsitgl-hpc022p.ncifcrf.gov",
+          "gpus": 1
+        },
+        {
+          "task_id": 30,
+          "done": 0,
+          "total": 50,
+          "status": "running",
+          "host": "fsitgl-hpc021p.ncifcrf.gov",
+          "gpus": 1
+        },
+        {
+          "task_id": 31,
+          "done": 0,
+          "total": 50,
+          "status": "running",
+          "host": "fsitgl-hpc021p.ncifcrf.gov",
+          "gpus": 1
+        },
+        {
+          "task_id": 32,
+          "done": 0,
+          "total": 50,
+          "status": "running",
+          "host": "fsitgl-hpc021p.ncifcrf.gov",
+          "gpus": 1
+        },
+        {
+          "task_id": 34,
+          "done": 0,
+          "total": 50,
+          "status": "running",
+          "host": "fsitgl-hpc021p.ncifcrf.gov",
+          "gpus": 1
+        },
+        {
+          "task_id": 35,
+          "done": 0,
+          "total": 50,
+          "status": "running",
+          "host": "fsitgl-hpc021p.ncifcrf.gov",
+          "gpus": 1
+        }
+      ]
     },
     {
       "name": "rosetta",
@@ -138,6 +219,6 @@
       "tasks": []
     }
   ],
-  "pipeline_status": "pending",
+  "pipeline_status": "running",
   "pipeline_pct": 0.0
 }
