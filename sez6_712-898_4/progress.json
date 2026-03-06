@@ -1,7 +1,7 @@
 {
   "run_id": "sez6_712-898_4",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/sez6_712-898_4",
-  "updated": "2026-03-06T15:42:36.594703+00:00",
+  "updated": "2026-03-06T15:43:43.805868+00:00",
   "config": {
     "total_designs": 100000,
     "target_pdb": "sez6_712-898",
@@ -35058,7 +35058,7 @@
     {
       "name": "combine_scores",
       "display_name": "scores",
-      "status": "running",
+      "status": "done",
       "job_id": "51088060",
       "done": 0,
       "total": 0,
@@ -35067,12 +35067,12 @@
       "n_running": 0,
       "wall_seconds": 0.0,
       "eta_seconds": null,
-      "started": "2026-03-06T15:41:45+00:00",
-      "ended": null,
+      "started": "2026-03-06T15:42:46+00:00",
+      "ended": "2026-03-06T15:42:46+00:00",
       "tasks": [
         {
           "task_id": 0,
-          "status": "running",
+          "status": "done",
           "host": null
         }
       ]
@@ -35080,20 +35080,30 @@
     {
       "name": "epitope",
       "display_name": "epitope",
-      "status": "pending",
-      "job_id": null,
-      "done": 0,
-      "total": 0,
-      "pct": 0.0,
-      "n_tasks": 0,
+      "status": "done",
+      "job_id": "51088061",
+      "done": 8,
+      "total": 8,
+      "pct": 100.0,
+      "n_tasks": 1,
       "n_running": 0,
-      "wall_seconds": null,
+      "wall_seconds": 4,
       "eta_seconds": null,
-      "started": null,
-      "ended": null,
-      "tasks": []
+      "started": "2026-03-06T15:43:06+00:00",
+      "ended": "2026-03-06T15:43:10+00:00",
+      "tasks": [
+        {
+          "task_id": 0,
+          "done": 8,
+          "total": 8,
+          "status": "done",
+          "host": "cn102",
+          "cpus": null
+        }
+      ],
+      "phase": "copy_pdbs"
     }
   ],
-  "pipeline_status": "running",
-  "pipeline_pct": 75.0
+  "pipeline_status": "done",
+  "pipeline_pct": 100.0
 }
