@@ -1,7 +1,7 @@
 {
   "run_id": "sez6_712-898_4",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/sez6_712-898_4",
-  "updated": "2026-03-06T14:41:24.064170+00:00",
+  "updated": "2026-03-06T14:42:28.872499+00:00",
   "config": {
     "total_designs": 100000,
     "target_pdb": "sez6_712-898",
@@ -12,17 +12,17 @@
     {
       "name": "rfantibody",
       "display_name": "rfantibody",
-      "status": "running",
+      "status": "done",
       "job_id": "51088048",
-      "done": 99993,
+      "done": 100000,
       "total": 100000,
       "pct": 100.0,
       "n_tasks": 4000,
-      "n_running": 3,
-      "wall_seconds": null,
-      "eta_seconds": 3.0,
+      "n_running": 0,
+      "wall_seconds": 49113,
+      "eta_seconds": null,
       "started": "2026-03-06T01:03:42+00:00",
-      "ended": null,
+      "ended": "2026-03-06T14:42:15+00:00",
       "tasks": [
         {
           "task_id": 0,
@@ -31994,17 +31994,17 @@
         },
         {
           "task_id": 3996,
-          "done": 23,
+          "done": 25,
           "total": 25,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc030p.ncifcrf.gov",
           "gpus": 1
         },
         {
           "task_id": 3997,
-          "done": 23,
+          "done": 25,
           "total": 25,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc020p.ncifcrf.gov",
           "gpus": 1
         },
@@ -32018,9 +32018,9 @@
         },
         {
           "task_id": 3999,
-          "done": 22,
+          "done": 25,
           "total": 25,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc024p.ncifcrf.gov",
           "gpus": 1
         }
@@ -32139,6 +32139,6 @@
       "tasks": []
     }
   ],
-  "pipeline_status": "running",
+  "pipeline_status": "pending",
   "pipeline_pct": 12.5
 }
