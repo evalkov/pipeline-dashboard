@@ -1,7 +1,7 @@
 {
   "run_id": "bcma_test_18",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/bcma_test_18",
-  "updated": "2026-03-14T14:27:44.470678+00:00",
+  "updated": "2026-03-14T14:28:46.712680+00:00",
   "config": {
     "total_designs": 10000,
     "target_pdb": "bcma",
@@ -261,17 +261,17 @@
     {
       "name": "deeprank_b",
       "display_name": "deeprank_b",
-      "status": "running",
+      "status": "done",
       "job_id": "51162203",
-      "done": 20,
+      "done": 21,
       "total": 21,
-      "pct": 95.2,
+      "pct": 100.0,
       "n_tasks": 2,
-      "n_running": 1,
-      "wall_seconds": null,
-      "eta_seconds": 6.0,
+      "n_running": 0,
+      "wall_seconds": 127,
+      "eta_seconds": null,
       "started": "2026-03-14T14:25:41+00:00",
-      "ended": null,
+      "ended": "2026-03-14T14:27:48+00:00",
       "tasks": [
         {
           "task_id": 0,
@@ -283,9 +283,9 @@
         },
         {
           "task_id": 1,
-          "done": 0,
+          "done": 1,
           "total": 1,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc175p",
           "gpus": 4
         }
@@ -294,36 +294,52 @@
     {
       "name": "combine_scores",
       "display_name": "scores",
-      "status": "pending",
-      "job_id": null,
+      "status": "done",
+      "job_id": "51162205",
       "done": 0,
       "total": 0,
       "pct": 0.0,
-      "n_tasks": 0,
+      "n_tasks": 1,
       "n_running": 0,
-      "wall_seconds": null,
+      "wall_seconds": 0.0,
       "eta_seconds": null,
-      "started": null,
-      "ended": null,
-      "tasks": []
+      "started": "2026-03-14T14:27:58+00:00",
+      "ended": "2026-03-14T14:27:58+00:00",
+      "tasks": [
+        {
+          "task_id": 0,
+          "status": "done",
+          "host": null
+        }
+      ]
     },
     {
       "name": "epitope",
       "display_name": "epitope",
-      "status": "pending",
-      "job_id": null,
-      "done": 0,
-      "total": 0,
-      "pct": 0.0,
-      "n_tasks": 0,
+      "status": "done",
+      "job_id": "51162206",
+      "done": 8,
+      "total": 8,
+      "pct": 100.0,
+      "n_tasks": 1,
       "n_running": 0,
-      "wall_seconds": null,
+      "wall_seconds": 0,
       "eta_seconds": null,
-      "started": null,
-      "ended": null,
-      "tasks": []
+      "started": "2026-03-14T14:28:08+00:00",
+      "ended": "2026-03-14T14:28:08+00:00",
+      "tasks": [
+        {
+          "task_id": 0,
+          "done": 8,
+          "total": 8,
+          "status": "done",
+          "host": "cn095",
+          "cpus": null
+        }
+      ],
+      "phase": "copy_pdbs"
     }
   ],
-  "pipeline_status": "running",
-  "pipeline_pct": 74.4
+  "pipeline_status": "done",
+  "pipeline_pct": 100.0
 }
