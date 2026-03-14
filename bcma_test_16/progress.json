@@ -1,7 +1,7 @@
 {
   "run_id": "bcma_test_16",
   "run_root": "/mnt/beegfs/valkov/rfantibody/unified/bcma_test_16",
-  "updated": "2026-03-14T11:52:35.483263+00:00",
+  "updated": "2026-03-14T11:53:37.111632+00:00",
   "config": {
     "total_designs": 1000,
     "target_pdb": "bcma",
@@ -44,14 +44,14 @@
     {
       "name": "pisa",
       "display_name": "pisa",
-      "status": "pending",
-      "job_id": null,
-      "done": 0,
-      "total": 0,
-      "pct": 0.0,
-      "n_tasks": 0,
+      "status": "done",
+      "job_id": "51161820",
+      "done": 973,
+      "total": 973,
+      "pct": 100.0,
+      "n_tasks": 1,
       "n_running": 0,
-      "wall_seconds": null,
+      "wall_seconds": 5,
       "eta_seconds": null,
       "started": null,
       "ended": null,
@@ -60,14 +60,14 @@
     {
       "name": "prodigy",
       "display_name": "prodigy",
-      "status": "pending",
-      "job_id": null,
-      "done": 0,
-      "total": 0,
-      "pct": 0.0,
-      "n_tasks": 0,
+      "status": "done",
+      "job_id": "51161822",
+      "done": 973,
+      "total": 973,
+      "pct": 100.0,
+      "n_tasks": 1,
       "n_running": 0,
-      "wall_seconds": null,
+      "wall_seconds": 12,
       "eta_seconds": null,
       "started": null,
       "ended": null,
@@ -139,5 +139,5 @@
     }
   ],
   "pipeline_status": "pending",
-  "pipeline_pct": 25.0
+  "pipeline_pct": 50.0
 }
