@@ -1,7 +1,7 @@
 {
   "run_id": "b7h4_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/b7h4_1M",
-  "updated": "2026-03-20T23:06:16.066368+00:00",
+  "updated": "2026-03-20T23:07:47.530991+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "b7h4",
@@ -20095,13 +20095,13 @@
       "display_name": "deeprank_b",
       "status": "running",
       "job_id": "51155356",
-      "done": 820,
+      "done": 960,
       "total": 2500,
-      "pct": 32.8,
-      "n_tasks": 48,
+      "pct": 38.4,
+      "n_tasks": 55,
       "n_running": 7,
       "wall_seconds": null,
-      "eta_seconds": 1541.0,
+      "eta_seconds": 1352.0,
       "started": "2026-03-20T22:53:15+00:00",
       "ended": null,
       "tasks": [
@@ -20435,6 +20435,70 @@
         },
         {
           "task_id": 41,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc189p",
+          "gpus": 4
+        },
+        {
+          "task_id": 42,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc030p",
+          "gpus": 4
+        },
+        {
+          "task_id": 43,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc183p",
+          "gpus": 4
+        },
+        {
+          "task_id": 44,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc021p",
+          "gpus": 4
+        },
+        {
+          "task_id": 45,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc023p",
+          "gpus": 4
+        },
+        {
+          "task_id": 46,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc182p",
+          "gpus": 4
+        },
+        {
+          "task_id": 47,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc190p",
+          "gpus": 4
+        },
+        {
+          "task_id": 48,
+          "done": 0,
+          "total": 20,
+          "status": "running",
+          "host": "fsitgl-hpc191p",
+          "gpus": 4
+        },
+        {
+          "task_id": 49,
           "done": 0,
           "total": 20,
           "status": "running",
@@ -20442,15 +20506,7 @@
           "gpus": 4
         },
         {
-          "task_id": 42,
-          "done": 0,
-          "total": 20,
-          "status": "running",
-          "host": "fsitgl-hpc030p",
-          "gpus": 4
-        },
-        {
-          "task_id": 43,
+          "task_id": 50,
           "done": 0,
           "total": 20,
           "status": "running",
@@ -20458,23 +20514,7 @@
           "gpus": 4
         },
         {
-          "task_id": 44,
-          "done": 0,
-          "total": 20,
-          "status": "running",
-          "host": "fsitgl-hpc021p",
-          "gpus": 4
-        },
-        {
-          "task_id": 45,
-          "done": 0,
-          "total": 20,
-          "status": "running",
-          "host": "fsitgl-hpc023p",
-          "gpus": 4
-        },
-        {
-          "task_id": 46,
+          "task_id": 51,
           "done": 0,
           "total": 20,
           "status": "running",
@@ -20482,11 +20522,27 @@
           "gpus": 4
         },
         {
-          "task_id": 47,
+          "task_id": 52,
           "done": 0,
           "total": 20,
           "status": "running",
-          "host": "fsitgl-hpc190p",
+          "host": "fsitgl-hpc030p",
+          "gpus": 4
+        },
+        {
+          "task_id": 53,
+          "done": 0,
+          "total": 20,
+          "status": "running",
+          "host": "fsitgl-hpc021p",
+          "gpus": 4
+        },
+        {
+          "task_id": 54,
+          "done": 0,
+          "total": 20,
+          "status": "running",
+          "host": "fsitgl-hpc023p",
           "gpus": 4
         }
       ]
@@ -20525,5 +20581,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 66.6
+  "pipeline_pct": 67.3
 }
