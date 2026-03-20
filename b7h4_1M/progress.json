@@ -1,7 +1,7 @@
 {
   "run_id": "b7h4_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/b7h4_1M",
-  "updated": "2026-03-20T16:43:27.148017+00:00",
+  "updated": "2026-03-20T16:44:59.534622+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "b7h4",
@@ -62,13 +62,13 @@
       "display_name": "prodigy",
       "status": "running",
       "job_id": "51155352",
-      "done": 317500,
+      "done": 320000,
       "total": 1000000,
-      "pct": 31.8,
+      "pct": 32.0,
       "n_tasks": 128,
       "n_running": 1,
       "wall_seconds": null,
-      "eta_seconds": 13340.0,
+      "eta_seconds": 13376.0,
       "started": "2026-03-20T14:59:34+00:00",
       "ended": null,
       "tasks": [
@@ -1090,9 +1090,9 @@
         },
         {
           "task_id": 127,
-          "done": 0,
+          "done": 2500,
           "total": 2500,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc033p",
           "cpus": 36
         }
@@ -1103,13 +1103,13 @@
       "display_name": "deeprank_a",
       "status": "running",
       "job_id": "51155355",
-      "done": 29610,
+      "done": 29908,
       "total": 1000000,
       "pct": 3.0,
       "n_tasks": 78,
       "n_running": 5,
       "wall_seconds": null,
-      "eta_seconds": 248047.0,
+      "eta_seconds": 248385.0,
       "started": "2026-03-20T14:36:51+00:00",
       "ended": null,
       "tasks": [
@@ -1699,7 +1699,7 @@
         },
         {
           "task_id": 73,
-          "done": 213,
+          "done": 297,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc097p",
@@ -1707,7 +1707,7 @@
         },
         {
           "task_id": 74,
-          "done": 126,
+          "done": 214,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc085p",
@@ -1715,7 +1715,7 @@
         },
         {
           "task_id": 75,
-          "done": 71,
+          "done": 151,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc107p",
@@ -1723,16 +1723,16 @@
         },
         {
           "task_id": 76,
-          "done": 0,
-          "total": 0,
+          "done": 25,
+          "total": 400,
           "status": "running",
           "host": "fsitgl-hpc047p",
           "cpus": 4
         },
         {
           "task_id": 77,
-          "done": 0,
-          "total": 0,
+          "done": 21,
+          "total": 400,
           "status": "running",
           "host": "fsitgl-hpc047p",
           "cpus": 4
