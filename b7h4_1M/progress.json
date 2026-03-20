@@ -1,7 +1,7 @@
 {
   "run_id": "b7h4_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/b7h4_1M",
-  "updated": "2026-03-20T17:36:14.032739+00:00",
+  "updated": "2026-03-20T17:37:45.981378+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "b7h4",
@@ -66,9 +66,9 @@
       "total": 1000000,
       "pct": 47.2,
       "n_tasks": 189,
-      "n_running": 13,
+      "n_running": 5,
       "wall_seconds": null,
-      "eta_seconds": 10461.0,
+      "eta_seconds": 10563.0,
       "started": "2026-03-20T14:59:34+00:00",
       "ended": null,
       "tasks": [
@@ -1591,13 +1591,13 @@
       "display_name": "deeprank_a",
       "status": "running",
       "job_id": "51155355",
-      "done": 41954,
+      "done": 42245,
       "total": 1000000,
       "pct": 4.2,
       "n_tasks": 109,
       "n_running": 5,
       "wall_seconds": null,
-      "eta_seconds": 245105.0,
+      "eta_seconds": 245408.0,
       "started": "2026-03-20T14:36:51+00:00",
       "ended": null,
       "tasks": [
@@ -2435,7 +2435,7 @@
         },
         {
           "task_id": 104,
-          "done": 312,
+          "done": 400,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc103p",
@@ -2443,7 +2443,7 @@
         },
         {
           "task_id": 105,
-          "done": 42,
+          "done": 142,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc085p",
@@ -2451,24 +2451,24 @@
         },
         {
           "task_id": 106,
-          "done": 0,
-          "total": 0,
+          "done": 21,
+          "total": 400,
           "status": "running",
           "host": "fsitgl-hpc097p",
           "cpus": 4
         },
         {
           "task_id": 107,
-          "done": 0,
-          "total": 0,
+          "done": 45,
+          "total": 400,
           "status": "running",
           "host": "fsitgl-hpc047p",
           "cpus": 4
         },
         {
           "task_id": 108,
-          "done": 0,
-          "total": 0,
+          "done": 37,
+          "total": 400,
           "status": "running",
           "host": "fsitgl-hpc047p",
           "cpus": 4
