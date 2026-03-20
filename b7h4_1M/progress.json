@@ -1,7 +1,7 @@
 {
   "run_id": "b7h4_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/b7h4_1M",
-  "updated": "2026-03-20T16:31:24.310663+00:00",
+  "updated": "2026-03-20T16:32:55.829695+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "b7h4",
@@ -66,9 +66,9 @@
       "total": 1000000,
       "pct": 28.0,
       "n_tasks": 112,
-      "n_running": 6,
+      "n_running": 1,
       "wall_seconds": null,
-      "eta_seconds": 14092.0,
+      "eta_seconds": 14328.0,
       "started": "2026-03-20T14:59:34+00:00",
       "ended": null,
       "tasks": [
@@ -975,13 +975,13 @@
       "display_name": "deeprank_a",
       "status": "running",
       "job_id": "51155355",
-      "done": 26708,
+      "done": 27091,
       "total": 1000000,
       "pct": 2.7,
       "n_tasks": 71,
       "n_running": 5,
       "wall_seconds": null,
-      "eta_seconds": 249384.0,
+      "eta_seconds": 249048.0,
       "started": "2026-03-20T14:36:51+00:00",
       "ended": null,
       "tasks": [
@@ -1515,7 +1515,7 @@
         },
         {
           "task_id": 66,
-          "done": 139,
+          "done": 255,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc047p",
@@ -1523,7 +1523,7 @@
         },
         {
           "task_id": 67,
-          "done": 124,
+          "done": 229,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc047p",
@@ -1531,7 +1531,7 @@
         },
         {
           "task_id": 68,
-          "done": 45,
+          "done": 145,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc103p",
@@ -1539,16 +1539,16 @@
         },
         {
           "task_id": 69,
-          "done": 0,
-          "total": 0,
+          "done": 45,
+          "total": 400,
           "status": "running",
           "host": "fsitgl-hpc085p",
           "cpus": 4
         },
         {
           "task_id": 70,
-          "done": 0,
-          "total": 0,
+          "done": 17,
+          "total": 400,
           "status": "running",
           "host": "fsitgl-hpc103p",
           "cpus": 4
