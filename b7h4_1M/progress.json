@@ -1,7 +1,7 @@
 {
   "run_id": "b7h4_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/b7h4_1M",
-  "updated": "2026-03-20T23:27:21.246724+00:00",
+  "updated": "2026-03-20T23:28:52.498504+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "b7h4",
@@ -20095,13 +20095,13 @@
       "display_name": "deeprank_b",
       "status": "running",
       "job_id": "51155356",
-      "done": 2360,
+      "done": 2440,
       "total": 2500,
-      "pct": 94.4,
+      "pct": 97.6,
       "n_tasks": 125,
-      "n_running": 7,
+      "n_running": 3,
       "wall_seconds": null,
-      "eta_seconds": 120.0,
+      "eta_seconds": 52.0,
       "started": "2026-03-20T22:53:15+00:00",
       "ended": null,
       "tasks": [
@@ -21051,33 +21051,33 @@
         },
         {
           "task_id": 118,
-          "done": 0,
+          "done": 20,
           "total": 20,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc182p",
           "gpus": 4
         },
         {
           "task_id": 119,
-          "done": 0,
+          "done": 20,
           "total": 20,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc189p",
           "gpus": 4
         },
         {
           "task_id": 120,
-          "done": 0,
+          "done": 20,
           "total": 20,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc190p",
           "gpus": 4
         },
         {
           "task_id": 121,
-          "done": 0,
+          "done": 20,
           "total": 20,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc183p",
           "gpus": 4
         },
@@ -21141,5 +21141,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 74.3
+  "pipeline_pct": 74.7
 }
