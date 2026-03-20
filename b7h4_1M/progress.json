@@ -1,7 +1,7 @@
 {
   "run_id": "b7h4_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/b7h4_1M",
-  "updated": "2026-03-20T09:19:54.254514+00:00",
+  "updated": "2026-03-20T09:21:14.123210+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "b7h4",
@@ -12,17 +12,17 @@
     {
       "name": "rfantibody",
       "display_name": "rfantibody",
-      "status": "running",
+      "status": "done",
       "job_id": "51155346",
-      "done": 999999,
+      "done": 1000000,
       "total": 1000000,
       "pct": 100.0,
       "n_tasks": 20000,
-      "n_running": 1,
-      "wall_seconds": null,
-      "eta_seconds": 1.0,
+      "n_running": 0,
+      "wall_seconds": 586637,
+      "eta_seconds": null,
       "started": "2026-03-13T14:22:46+00:00",
-      "ended": null,
+      "ended": "2026-03-20T09:20:03+00:00",
       "tasks": [
         {
           "task_id": 0,
@@ -160018,9 +160018,9 @@
         },
         {
           "task_id": 19999,
-          "done": 49,
+          "done": 50,
           "total": 50,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc025p.ncifcrf.gov",
           "gpus": 1
         }
@@ -160139,6 +160139,6 @@
       "tasks": []
     }
   ],
-  "pipeline_status": "running",
+  "pipeline_status": "pending",
   "pipeline_pct": 12.5
 }
