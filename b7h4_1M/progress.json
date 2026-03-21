@@ -1,7 +1,7 @@
 {
   "run_id": "b7h4_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/b7h4_1M",
-  "updated": "2026-03-21T13:57:38.979474+00:00",
+  "updated": "2026-03-21T13:58:58.233690+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "b7h4",
@@ -62,13 +62,13 @@
       "display_name": "prodigy",
       "status": "running",
       "job_id": "51216904",
-      "done": 195000,
+      "done": 197500,
       "total": 1000000,
-      "pct": 19.5,
-      "n_tasks": 78,
-      "n_running": 14,
+      "pct": 19.8,
+      "n_tasks": 79,
+      "n_running": 16,
       "wall_seconds": null,
-      "eta_seconds": 14396.0,
+      "eta_seconds": 14491.0,
       "started": "2026-03-21T12:59:14+00:00",
       "ended": null,
       "tasks": [
@@ -654,6 +654,14 @@
           "total": 2500,
           "status": "done",
           "host": "fsitgl-hpc117p",
+          "cpus": 36
+        },
+        {
+          "task_id": 73,
+          "done": 2500,
+          "total": 2500,
+          "status": "done",
+          "host": "fsitgl-hpc134p",
           "cpus": 36
         },
         {
@@ -21766,5 +21774,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 64.9
+  "pipeline_pct": 65.0
 }
