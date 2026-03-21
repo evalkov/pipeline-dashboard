@@ -1,7 +1,7 @@
 {
   "run_id": "b7h4_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/b7h4_1M",
-  "updated": "2026-03-21T14:58:10.057254+00:00",
+  "updated": "2026-03-21T14:59:33.300896+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "b7h4",
@@ -21132,20 +21132,30 @@
     {
       "name": "epitope",
       "display_name": "epitope",
-      "status": "pending",
-      "job_id": null,
-      "done": 0,
-      "total": 0,
-      "pct": 0.0,
-      "n_tasks": 0,
+      "status": "done",
+      "job_id": "51217613",
+      "done": 8,
+      "total": 8,
+      "pct": 100.0,
+      "n_tasks": 1,
       "n_running": 0,
-      "wall_seconds": null,
+      "wall_seconds": 24,
       "eta_seconds": null,
-      "started": null,
-      "ended": null,
-      "tasks": []
+      "started": "2026-03-21T14:58:11+00:00",
+      "ended": "2026-03-21T14:58:35+00:00",
+      "tasks": [
+        {
+          "task_id": 0,
+          "done": 8,
+          "total": 8,
+          "status": "done",
+          "host": "cn087",
+          "cpus": null
+        }
+      ],
+      "phase": "copy_pdbs"
     }
   ],
-  "pipeline_status": "pending",
-  "pipeline_pct": 87.5
+  "pipeline_status": "done",
+  "pipeline_pct": 100.0
 }
