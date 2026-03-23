@@ -1,7 +1,7 @@
 {
   "run_id": "fmrp_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/fmrp_1M",
-  "updated": "2026-03-23T09:16:27.130778+00:00",
+  "updated": "2026-03-23T09:17:31.747715+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "fmrp",
@@ -14,13 +14,13 @@
       "display_name": "rfantibody",
       "status": "running",
       "job_id": "51218927",
-      "done": 119740,
+      "done": 119807,
       "total": 1000000,
       "pct": 12.0,
-      "n_tasks": 2417,
+      "n_tasks": 2420,
       "n_running": 47,
       "wall_seconds": null,
-      "eta_seconds": 853087.0,
+      "eta_seconds": 853023.0,
       "started": "2026-03-22T01:02:20+00:00",
       "ended": null,
       "tasks": [
@@ -18914,9 +18914,9 @@
         },
         {
           "task_id": 12188,
-          "done": 49,
+          "done": 50,
           "total": 50,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc020p.ncifcrf.gov",
           "gpus": 1
         },
@@ -18930,17 +18930,17 @@
         },
         {
           "task_id": 12190,
-          "done": 49,
+          "done": 50,
           "total": 50,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc021p.ncifcrf.gov",
           "gpus": 1
         },
         {
           "task_id": 12191,
-          "done": 49,
+          "done": 50,
           "total": 50,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc023p.ncifcrf.gov",
           "gpus": 1
         },
@@ -18962,7 +18962,7 @@
         },
         {
           "task_id": 12194,
-          "done": 48,
+          "done": 49,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc031p.ncifcrf.gov",
@@ -18978,7 +18978,7 @@
         },
         {
           "task_id": 12196,
-          "done": 47,
+          "done": 48,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc030p.ncifcrf.gov",
@@ -19002,7 +19002,7 @@
         },
         {
           "task_id": 12199,
-          "done": 45,
+          "done": 47,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc031p.ncifcrf.gov",
@@ -19010,14 +19010,6 @@
         },
         {
           "task_id": 12200,
-          "done": 41,
-          "total": 50,
-          "status": "running",
-          "host": "fsitgl-hpc020p.ncifcrf.gov",
-          "gpus": 1
-        },
-        {
-          "task_id": 12201,
           "done": 43,
           "total": 50,
           "status": "running",
@@ -19025,8 +19017,16 @@
           "gpus": 1
         },
         {
+          "task_id": 12201,
+          "done": 44,
+          "total": 50,
+          "status": "running",
+          "host": "fsitgl-hpc020p.ncifcrf.gov",
+          "gpus": 1
+        },
+        {
           "task_id": 12202,
-          "done": 41,
+          "done": 43,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc031p.ncifcrf.gov",
@@ -19034,7 +19034,7 @@
         },
         {
           "task_id": 12203,
-          "done": 44,
+          "done": 46,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc030p.ncifcrf.gov",
@@ -19042,7 +19042,7 @@
         },
         {
           "task_id": 12204,
-          "done": 39,
+          "done": 41,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc021p.ncifcrf.gov",
@@ -19050,7 +19050,7 @@
         },
         {
           "task_id": 12205,
-          "done": 40,
+          "done": 41,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc023p.ncifcrf.gov",
@@ -19066,7 +19066,7 @@
         },
         {
           "task_id": 12207,
-          "done": 42,
+          "done": 44,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc030p.ncifcrf.gov",
@@ -19074,7 +19074,7 @@
         },
         {
           "task_id": 12208,
-          "done": 39,
+          "done": 40,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc021p.ncifcrf.gov",
@@ -19082,7 +19082,7 @@
         },
         {
           "task_id": 12209,
-          "done": 35,
+          "done": 37,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc031p.ncifcrf.gov",
@@ -19090,7 +19090,7 @@
         },
         {
           "task_id": 12210,
-          "done": 38,
+          "done": 39,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc021p.ncifcrf.gov",
@@ -19098,7 +19098,7 @@
         },
         {
           "task_id": 12211,
-          "done": 36,
+          "done": 38,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc021p.ncifcrf.gov",
@@ -19122,7 +19122,7 @@
         },
         {
           "task_id": 12214,
-          "done": 33,
+          "done": 35,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc030p.ncifcrf.gov",
@@ -19130,7 +19130,7 @@
         },
         {
           "task_id": 12215,
-          "done": 32,
+          "done": 33,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc030p.ncifcrf.gov",
@@ -19138,7 +19138,7 @@
         },
         {
           "task_id": 12216,
-          "done": 32,
+          "done": 34,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc021p.ncifcrf.gov",
@@ -19146,7 +19146,7 @@
         },
         {
           "task_id": 12217,
-          "done": 28,
+          "done": 30,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc021p.ncifcrf.gov",
@@ -19154,7 +19154,7 @@
         },
         {
           "task_id": 12218,
-          "done": 26,
+          "done": 28,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc030p.ncifcrf.gov",
@@ -19162,7 +19162,7 @@
         },
         {
           "task_id": 12219,
-          "done": 27,
+          "done": 28,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc023p.ncifcrf.gov",
@@ -19170,7 +19170,7 @@
         },
         {
           "task_id": 12220,
-          "done": 26,
+          "done": 27,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc020p.ncifcrf.gov",
@@ -19178,7 +19178,7 @@
         },
         {
           "task_id": 12221,
-          "done": 20,
+          "done": 21,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc021p.ncifcrf.gov",
@@ -19186,7 +19186,7 @@
         },
         {
           "task_id": 12222,
-          "done": 32,
+          "done": 33,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc187p.ncifcrf.gov",
@@ -19194,7 +19194,7 @@
         },
         {
           "task_id": 12223,
-          "done": 31,
+          "done": 33,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc172p.ncifcrf.gov",
@@ -19202,7 +19202,7 @@
         },
         {
           "task_id": 12224,
-          "done": 16,
+          "done": 18,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc023p.ncifcrf.gov",
@@ -19210,7 +19210,7 @@
         },
         {
           "task_id": 12225,
-          "done": 31,
+          "done": 33,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc187p.ncifcrf.gov",
@@ -19218,7 +19218,7 @@
         },
         {
           "task_id": 12226,
-          "done": 28,
+          "done": 29,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc172p.ncifcrf.gov",
@@ -19226,7 +19226,7 @@
         },
         {
           "task_id": 12227,
-          "done": 27,
+          "done": 30,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc172p.ncifcrf.gov",
@@ -19234,7 +19234,7 @@
         },
         {
           "task_id": 12228,
-          "done": 15,
+          "done": 16,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc030p.ncifcrf.gov",
@@ -19242,7 +19242,7 @@
         },
         {
           "task_id": 12229,
-          "done": 12,
+          "done": 13,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc031p.ncifcrf.gov",
@@ -19250,7 +19250,7 @@
         },
         {
           "task_id": 12230,
-          "done": 12,
+          "done": 13,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc020p.ncifcrf.gov",
@@ -19258,7 +19258,7 @@
         },
         {
           "task_id": 12231,
-          "done": 11,
+          "done": 13,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc031p.ncifcrf.gov",
@@ -19266,7 +19266,7 @@
         },
         {
           "task_id": 12232,
-          "done": 10,
+          "done": 11,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc030p.ncifcrf.gov",
@@ -19282,7 +19282,7 @@
         },
         {
           "task_id": 12234,
-          "done": 9,
+          "done": 10,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc031p.ncifcrf.gov",
@@ -19290,7 +19290,7 @@
         },
         {
           "task_id": 12235,
-          "done": 16,
+          "done": 17,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc187p.ncifcrf.gov",
@@ -19298,7 +19298,7 @@
         },
         {
           "task_id": 12236,
-          "done": 7,
+          "done": 9,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc023p.ncifcrf.gov",
@@ -19314,7 +19314,7 @@
         },
         {
           "task_id": 12238,
-          "done": 8,
+          "done": 9,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc181p.ncifcrf.gov",
@@ -19322,7 +19322,7 @@
         },
         {
           "task_id": 12239,
-          "done": 3,
+          "done": 4,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc031p.ncifcrf.gov",
@@ -19330,7 +19330,7 @@
         },
         {
           "task_id": 12240,
-          "done": 3,
+          "done": 5,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc020p.ncifcrf.gov",
@@ -19338,7 +19338,7 @@
         },
         {
           "task_id": 12241,
-          "done": 2,
+          "done": 4,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc020p.ncifcrf.gov",
@@ -19346,7 +19346,7 @@
         },
         {
           "task_id": 12242,
-          "done": 1,
+          "done": 3,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc172p.ncifcrf.gov",
@@ -19354,10 +19354,34 @@
         },
         {
           "task_id": 12243,
-          "done": 1,
+          "done": 2,
           "total": 50,
           "status": "running",
           "host": "fsitgl-hpc020p.ncifcrf.gov",
+          "gpus": 1
+        },
+        {
+          "task_id": 12244,
+          "done": 0,
+          "total": 50,
+          "status": "running",
+          "host": "fsitgl-hpc023p.ncifcrf.gov",
+          "gpus": 1
+        },
+        {
+          "task_id": 12245,
+          "done": 0,
+          "total": 50,
+          "status": "running",
+          "host": "fsitgl-hpc023p.ncifcrf.gov",
+          "gpus": 1
+        },
+        {
+          "task_id": 12246,
+          "done": 0,
+          "total": 50,
+          "status": "running",
+          "host": "fsitgl-hpc021p.ncifcrf.gov",
           "gpus": 1
         }
       ]
