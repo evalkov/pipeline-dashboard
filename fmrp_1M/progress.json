@@ -1,7 +1,7 @@
 {
   "run_id": "fmrp_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/fmrp_1M",
-  "updated": "2026-04-03T23:53:17.075084+00:00",
+  "updated": "2026-04-03T23:54:38.908903+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "fmrp",
@@ -30,13 +30,13 @@
       "display_name": "rosetta",
       "status": "running",
       "job_id": "51305389",
-      "done": 624407,
+      "done": 627271,
       "total": 1000000,
-      "pct": 62.4,
-      "n_tasks": 256,
+      "pct": 62.7,
+      "n_tasks": 258,
       "n_running": 16,
       "wall_seconds": null,
-      "eta_seconds": 9912.0,
+      "eta_seconds": 9839.0,
       "started": "2026-04-03T19:18:20+00:00",
       "ended": null,
       "tasks": [
@@ -1962,23 +1962,23 @@
         },
         {
           "task_id": 240,
-          "done": 2462,
+          "done": 2500,
           "total": 2500,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc115p",
           "cpus": 36
         },
         {
           "task_id": 241,
-          "done": 2400,
+          "done": 2500,
           "total": 2500,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc110p",
           "cpus": 36
         },
         {
           "task_id": 242,
-          "done": 2112,
+          "done": 2312,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc102p",
@@ -1986,7 +1986,7 @@
         },
         {
           "task_id": 243,
-          "done": 1650,
+          "done": 1787,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc101p",
@@ -1994,7 +1994,7 @@
         },
         {
           "task_id": 244,
-          "done": 2048,
+          "done": 2250,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc100p",
@@ -2002,7 +2002,7 @@
         },
         {
           "task_id": 245,
-          "done": 2037,
+          "done": 2275,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc112p",
@@ -2010,7 +2010,7 @@
         },
         {
           "task_id": 246,
-          "done": 1987,
+          "done": 2187,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc096p",
@@ -2018,7 +2018,7 @@
         },
         {
           "task_id": 247,
-          "done": 1975,
+          "done": 2162,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc098p",
@@ -2026,7 +2026,7 @@
         },
         {
           "task_id": 248,
-          "done": 1837,
+          "done": 2025,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc094p",
@@ -2034,7 +2034,7 @@
         },
         {
           "task_id": 249,
-          "done": 1562,
+          "done": 1750,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc095p",
@@ -2042,7 +2042,7 @@
         },
         {
           "task_id": 250,
-          "done": 1725,
+          "done": 1912,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc111p",
@@ -2050,7 +2050,7 @@
         },
         {
           "task_id": 251,
-          "done": 1050,
+          "done": 1250,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc109p",
@@ -2058,7 +2058,7 @@
         },
         {
           "task_id": 252,
-          "done": 812,
+          "done": 1000,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc106p",
@@ -2066,7 +2066,7 @@
         },
         {
           "task_id": 253,
-          "done": 425,
+          "done": 662,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc086p",
@@ -2074,7 +2074,7 @@
         },
         {
           "task_id": 254,
-          "done": 325,
+          "done": 562,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc104p",
@@ -2082,10 +2082,26 @@
         },
         {
           "task_id": 255,
-          "done": 0,
+          "done": 137,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc088p",
+          "cpus": 36
+        },
+        {
+          "task_id": 256,
+          "done": 0,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc115p",
+          "cpus": 36
+        },
+        {
+          "task_id": 257,
+          "done": 0,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc110p",
           "cpus": 36
         }
       ]
