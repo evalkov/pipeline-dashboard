@@ -1,7 +1,7 @@
 {
   "run_id": "fmrp_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/fmrp_1M",
-  "updated": "2026-04-04T12:01:32.433384+00:00",
+  "updated": "2026-04-04T12:02:57.537789+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "fmrp",
@@ -20095,13 +20095,13 @@
       "display_name": "deeprank_b",
       "status": "running",
       "job_id": "51307575",
-      "done": 1500,
+      "done": 1544,
       "total": 2500,
-      "pct": 60.0,
-      "n_tasks": 83,
+      "pct": 61.8,
+      "n_tasks": 85,
       "n_running": 8,
       "wall_seconds": null,
-      "eta_seconds": 1125.0,
+      "eta_seconds": 1098.0,
       "started": "2026-04-04T11:33:01+00:00",
       "ended": null,
       "tasks": [
@@ -20707,17 +20707,17 @@
         },
         {
           "task_id": 75,
-          "done": 0,
+          "done": 20,
           "total": 20,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc182p",
           "gpus": 4
         },
         {
           "task_id": 76,
-          "done": 0,
+          "done": 20,
           "total": 20,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc179p",
           "gpus": 4
         },
@@ -20755,7 +20755,7 @@
         },
         {
           "task_id": 81,
-          "done": 0,
+          "done": 4,
           "total": 20,
           "status": "running",
           "host": "fsitgl-hpc180p",
@@ -20767,6 +20767,22 @@
           "total": 20,
           "status": "running",
           "host": "fsitgl-hpc181p",
+          "gpus": 4
+        },
+        {
+          "task_id": 83,
+          "done": 0,
+          "total": 20,
+          "status": "running",
+          "host": "fsitgl-hpc179p",
+          "gpus": 4
+        },
+        {
+          "task_id": 84,
+          "done": 0,
+          "total": 20,
+          "status": "running",
+          "host": "fsitgl-hpc182p",
           "gpus": 4
         }
       ]
@@ -20805,5 +20821,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 70.0
+  "pipeline_pct": 70.2
 }
