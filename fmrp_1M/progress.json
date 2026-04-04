@@ -1,7 +1,7 @@
 {
   "run_id": "fmrp_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/fmrp_1M",
-  "updated": "2026-04-04T11:44:17.020007+00:00",
+  "updated": "2026-04-04T11:45:43.425011+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "fmrp",
@@ -20095,13 +20095,13 @@
       "display_name": "deeprank_b",
       "status": "running",
       "job_id": "51307575",
-      "done": 540,
+      "done": 560,
       "total": 2500,
-      "pct": 21.6,
-      "n_tasks": 34,
-      "n_running": 7,
+      "pct": 22.4,
+      "n_tasks": 36,
+      "n_running": 8,
       "wall_seconds": null,
-      "eta_seconds": 2368.0,
+      "eta_seconds": 2555.0,
       "started": "2026-04-04T11:33:01+00:00",
       "ended": null,
       "tasks": [
@@ -20323,9 +20323,9 @@
         },
         {
           "task_id": 27,
-          "done": 0,
+          "done": 20,
           "total": 20,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc182p",
           "gpus": 4
         },
@@ -20376,6 +20376,22 @@
           "status": "running",
           "host": "fsitgl-hpc023p",
           "gpus": 4
+        },
+        {
+          "task_id": 34,
+          "done": 0,
+          "total": 20,
+          "status": "running",
+          "host": "fsitgl-hpc181p",
+          "gpus": 4
+        },
+        {
+          "task_id": 35,
+          "done": 0,
+          "total": 20,
+          "status": "running",
+          "host": "fsitgl-hpc182p",
+          "gpus": 4
         }
       ]
     },
@@ -20413,5 +20429,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 65.2
+  "pipeline_pct": 65.3
 }
