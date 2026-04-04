@@ -1,7 +1,7 @@
 {
   "run_id": "fmrp_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/fmrp_1M",
-  "updated": "2026-04-04T12:14:23.046913+00:00",
+  "updated": "2026-04-04T12:15:49.433766+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "fmrp",
@@ -20095,13 +20095,13 @@
       "display_name": "deeprank_b",
       "status": "running",
       "job_id": "51307575",
-      "done": 2300,
+      "done": 2360,
       "total": 2500,
-      "pct": 92.0,
-      "n_tasks": 121,
-      "n_running": 6,
+      "pct": 94.4,
+      "n_tasks": 125,
+      "n_running": 7,
       "wall_seconds": null,
-      "eta_seconds": 214.0,
+      "eta_seconds": 151.0,
       "started": "2026-04-04T11:33:01+00:00",
       "ended": null,
       "tasks": [
@@ -21027,25 +21027,25 @@
         },
         {
           "task_id": 115,
-          "done": 0,
+          "done": 20,
           "total": 20,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc179p",
           "gpus": 4
         },
         {
           "task_id": 116,
-          "done": 0,
+          "done": 20,
           "total": 20,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc182p",
           "gpus": 4
         },
         {
           "task_id": 117,
-          "done": 0,
+          "done": 20,
           "total": 20,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc181p",
           "gpus": 4
         },
@@ -21071,6 +21071,38 @@
           "total": 20,
           "status": "running",
           "host": "fsitgl-hpc020p",
+          "gpus": 4
+        },
+        {
+          "task_id": 121,
+          "done": 0,
+          "total": 20,
+          "status": "running",
+          "host": "fsitgl-hpc017p",
+          "gpus": 4
+        },
+        {
+          "task_id": 122,
+          "done": 0,
+          "total": 20,
+          "status": "running",
+          "host": "fsitgl-hpc018p",
+          "gpus": 4
+        },
+        {
+          "task_id": 123,
+          "done": 0,
+          "total": 20,
+          "status": "running",
+          "host": "fsitgl-hpc179p",
+          "gpus": 4
+        },
+        {
+          "task_id": 124,
+          "done": 0,
+          "total": 20,
+          "status": "running",
+          "host": "fsitgl-hpc182p",
           "gpus": 4
         }
       ]
@@ -21109,5 +21141,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 74.0
+  "pipeline_pct": 74.3
 }
