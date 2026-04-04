@@ -1,7 +1,7 @@
 {
   "run_id": "fmrp_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/fmrp_1M",
-  "updated": "2026-04-04T12:44:53.569186+00:00",
+  "updated": "2026-04-04T12:46:19.242585+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "fmrp",
@@ -21134,28 +21134,28 @@
       "display_name": "epitope",
       "status": "running",
       "job_id": "51314082",
-      "done": 0,
+      "done": 1,
       "total": 8,
-      "pct": 0.0,
+      "pct": 12.5,
       "n_tasks": 1,
       "n_running": 1,
       "wall_seconds": null,
-      "eta_seconds": null,
+      "eta_seconds": 450.0,
       "started": "2026-04-04T12:44:51+00:00",
       "ended": null,
       "tasks": [
         {
           "task_id": 0,
-          "done": 0,
+          "done": 1,
           "total": 8,
           "status": "running",
           "host": "cn101",
           "cpus": null
         }
       ],
-      "phase": "load_contacts"
+      "phase": "stage_A"
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 87.5
+  "pipeline_pct": 89.1
 }
