@@ -1,7 +1,7 @@
 {
   "run_id": "fmrp_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/fmrp_1M",
-  "updated": "2026-04-04T07:30:23.097187+00:00",
+  "updated": "2026-04-04T07:31:49.486288+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "fmrp",
@@ -76,17 +76,17 @@
     {
       "name": "deeprank_a",
       "display_name": "deeprank_a",
-      "status": "running",
+      "status": "done",
       "job_id": "51307574",
       "done": 1000000,
       "total": 1000000,
       "pct": 100.0,
       "n_tasks": 2500,
-      "n_running": 1,
-      "wall_seconds": null,
-      "eta_seconds": 0.0,
+      "n_running": 0,
+      "wall_seconds": 15870,
+      "eta_seconds": null,
       "started": "2026-04-04T03:05:58+00:00",
-      "ended": null,
+      "ended": "2026-04-04T07:30:28+00:00",
       "tasks": [
         {
           "task_id": 0,
@@ -20084,7 +20084,7 @@
           "task_id": 2499,
           "done": 400,
           "total": 400,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc095p",
           "cpus": 4
         }
@@ -20139,6 +20139,6 @@
       "tasks": []
     }
   ],
-  "pipeline_status": "running",
+  "pipeline_status": "pending",
   "pipeline_pct": 62.5
 }
