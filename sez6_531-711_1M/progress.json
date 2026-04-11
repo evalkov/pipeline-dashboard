@@ -1,7 +1,7 @@
 {
   "run_id": "sez6_531-711_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/sez6_531-711_1M",
-  "updated": "2026-04-11T06:05:18.464761+00:00",
+  "updated": "2026-04-11T06:07:28.848715+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "sez6_531-711",
@@ -34,7 +34,7 @@
       "total": 1000000,
       "pct": 100.0,
       "n_tasks": 400,
-      "n_running": 3,
+      "n_running": 4,
       "wall_seconds": null,
       "eta_seconds": 0.0,
       "started": "2026-04-11T01:25:12+00:00",
@@ -3156,7 +3156,7 @@
           "task_id": 389,
           "done": 2500,
           "total": 2500,
-          "status": "done",
+          "status": "running",
           "host": "fsitgl-hpc034p",
           "cpus": 36
         },
