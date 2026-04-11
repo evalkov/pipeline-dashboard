@@ -1,7 +1,7 @@
 {
   "run_id": "sez6_531-711_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/sez6_531-711_1M",
-  "updated": "2026-04-11T09:28:44.589953+00:00",
+  "updated": "2026-04-11T09:31:09.374002+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "sez6_531-711",
@@ -20095,13 +20095,13 @@
       "display_name": "deeprank_b",
       "status": "running",
       "job_id": "51359184",
-      "done": 2020,
+      "done": 2180,
       "total": 2500,
-      "pct": 80.8,
-      "n_tasks": 108,
-      "n_running": 7,
+      "pct": 87.2,
+      "n_tasks": 117,
+      "n_running": 8,
       "wall_seconds": null,
-      "eta_seconds": 373.0,
+      "eta_seconds": 252.0,
       "started": "2026-04-11T09:01:13+00:00",
       "ended": null,
       "tasks": [
@@ -20915,30 +20915,70 @@
         },
         {
           "task_id": 101,
-          "done": 0,
+          "done": 20,
           "total": 20,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc032p",
           "gpus": 4
         },
         {
           "task_id": 102,
-          "done": 0,
+          "done": 20,
           "total": 20,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc030p",
           "gpus": 4
         },
         {
           "task_id": 103,
-          "done": 0,
+          "done": 20,
           "total": 20,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc023p",
           "gpus": 4
         },
         {
           "task_id": 104,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc188p",
+          "gpus": 4
+        },
+        {
+          "task_id": 105,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc191p",
+          "gpus": 4
+        },
+        {
+          "task_id": 106,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc189p",
+          "gpus": 4
+        },
+        {
+          "task_id": 107,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc183p",
+          "gpus": 4
+        },
+        {
+          "task_id": 108,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc181p",
+          "gpus": 4
+        },
+        {
+          "task_id": 109,
           "done": 0,
           "total": 20,
           "status": "running",
@@ -20946,7 +20986,15 @@
           "gpus": 4
         },
         {
-          "task_id": 105,
+          "task_id": 110,
+          "done": 0,
+          "total": 20,
+          "status": "running",
+          "host": "fsitgl-hpc032p",
+          "gpus": 4
+        },
+        {
+          "task_id": 111,
           "done": 0,
           "total": 20,
           "status": "running",
@@ -20954,7 +21002,7 @@
           "gpus": 4
         },
         {
-          "task_id": 106,
+          "task_id": 112,
           "done": 0,
           "total": 20,
           "status": "running",
@@ -20962,11 +21010,35 @@
           "gpus": 4
         },
         {
-          "task_id": 107,
+          "task_id": 113,
+          "done": 0,
+          "total": 20,
+          "status": "running",
+          "host": "fsitgl-hpc030p",
+          "gpus": 4
+        },
+        {
+          "task_id": 114,
+          "done": 0,
+          "total": 20,
+          "status": "running",
+          "host": "fsitgl-hpc023p",
+          "gpus": 4
+        },
+        {
+          "task_id": 115,
           "done": 0,
           "total": 20,
           "status": "running",
           "host": "fsitgl-hpc183p",
+          "gpus": 4
+        },
+        {
+          "task_id": 116,
+          "done": 0,
+          "total": 20,
+          "status": "running",
+          "host": "fsitgl-hpc181p",
           "gpus": 4
         }
       ]
@@ -21005,5 +21077,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 72.6
+  "pipeline_pct": 73.4
 }
