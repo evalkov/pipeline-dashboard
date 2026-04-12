@@ -1,7 +1,7 @@
 {
   "run_id": "sez6_245-530_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/sez6_245-530_1M",
-  "updated": "2026-04-12T19:46:53.620719+00:00",
+  "updated": "2026-04-12T19:48:49.705682+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "sez6_245-530",
@@ -60,14 +60,14 @@
     {
       "name": "prodigy",
       "display_name": "prodigy",
-      "status": "pending",
-      "job_id": null,
-      "done": 0,
-      "total": 0,
-      "pct": 0.0,
-      "n_tasks": 0,
+      "status": "done",
+      "job_id": "51413935",
+      "done": 1000000,
+      "total": 1000000,
+      "pct": 100.0,
+      "n_tasks": 400,
       "n_running": 0,
-      "wall_seconds": null,
+      "wall_seconds": 1065,
       "eta_seconds": null,
       "started": null,
       "ended": null,
@@ -139,5 +139,5 @@
     }
   ],
   "pipeline_status": "pending",
-  "pipeline_pct": 25.0
+  "pipeline_pct": 37.5
 }
