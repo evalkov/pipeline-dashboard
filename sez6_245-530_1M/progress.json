@@ -1,7 +1,7 @@
 {
   "run_id": "sez6_245-530_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/sez6_245-530_1M",
-  "updated": "2026-04-12T20:27:54.641001+00:00",
+  "updated": "2026-04-12T20:29:53.082497+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "sez6_245-530",
@@ -44,14 +44,14 @@
     {
       "name": "pisa",
       "display_name": "pisa",
-      "status": "pending",
-      "job_id": null,
-      "done": 0,
-      "total": 0,
-      "pct": 0.0,
-      "n_tasks": 0,
+      "status": "done",
+      "job_id": "51414348",
+      "done": 1000000,
+      "total": 1000000,
+      "pct": 100.0,
+      "n_tasks": 400,
       "n_running": 0,
-      "wall_seconds": null,
+      "wall_seconds": 1070,
       "eta_seconds": null,
       "started": null,
       "ended": null,
@@ -139,5 +139,5 @@
     }
   ],
   "pipeline_status": "pending",
-  "pipeline_pct": 37.5
+  "pipeline_pct": 50.0
 }
