@@ -1,7 +1,7 @@
 {
   "run_id": "sez6_245-530_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/sez6_245-530_1M",
-  "updated": "2026-04-12T20:08:12.337506+00:00",
+  "updated": "2026-04-12T20:10:28.308975+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "sez6_245-530",
@@ -44,18 +44,155 @@
     {
       "name": "pisa",
       "display_name": "pisa",
-      "status": "pending",
-      "job_id": null,
-      "done": 0,
-      "total": 0,
-      "pct": 0.0,
-      "n_tasks": 0,
-      "n_running": 0,
+      "status": "running",
+      "job_id": "51414348",
+      "done": 7500,
+      "total": 1000000,
+      "pct": 0.8,
+      "n_tasks": 17,
+      "n_running": 14,
       "wall_seconds": null,
-      "eta_seconds": null,
-      "started": null,
+      "eta_seconds": 27.0,
+      "started": "2026-04-12T20:09:48+00:00",
       "ended": null,
-      "tasks": []
+      "tasks": [
+        {
+          "task_id": 0,
+          "done": 0,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc126p",
+          "cpus": 36
+        },
+        {
+          "task_id": 1,
+          "done": 0,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc129p",
+          "cpus": 36
+        },
+        {
+          "task_id": 2,
+          "done": 0,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc131p",
+          "cpus": 36
+        },
+        {
+          "task_id": 3,
+          "done": 0,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc132p",
+          "cpus": 36
+        },
+        {
+          "task_id": 4,
+          "done": 0,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc116p",
+          "cpus": 36
+        },
+        {
+          "task_id": 5,
+          "done": 0,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc117p",
+          "cpus": 36
+        },
+        {
+          "task_id": 6,
+          "done": 0,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc118p",
+          "cpus": 36
+        },
+        {
+          "task_id": 7,
+          "done": 2500,
+          "total": 2500,
+          "status": "done",
+          "host": "fsitgl-hpc119p",
+          "cpus": 36
+        },
+        {
+          "task_id": 8,
+          "done": 0,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc120p",
+          "cpus": 36
+        },
+        {
+          "task_id": 9,
+          "done": 0,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc121p",
+          "cpus": 36
+        },
+        {
+          "task_id": 10,
+          "done": 2500,
+          "total": 2500,
+          "status": "done",
+          "host": "fsitgl-hpc122p",
+          "cpus": 36
+        },
+        {
+          "task_id": 11,
+          "done": 0,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc123p",
+          "cpus": 36
+        },
+        {
+          "task_id": 12,
+          "done": 2500,
+          "total": 2500,
+          "status": "done",
+          "host": "fsitgl-hpc124p",
+          "cpus": 36
+        },
+        {
+          "task_id": 13,
+          "done": 0,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc164p",
+          "cpus": 36
+        },
+        {
+          "task_id": 14,
+          "done": 0,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc165p",
+          "cpus": 36
+        },
+        {
+          "task_id": 15,
+          "done": 0,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc166p",
+          "cpus": 36
+        },
+        {
+          "task_id": 16,
+          "done": 0,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc124p",
+          "cpus": 36
+        }
+      ]
     },
     {
       "name": "prodigy",
@@ -138,6 +275,6 @@
       "tasks": []
     }
   ],
-  "pipeline_status": "pending",
-  "pipeline_pct": 37.5
+  "pipeline_status": "running",
+  "pipeline_pct": 37.6
 }
