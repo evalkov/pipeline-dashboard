@@ -1,7 +1,7 @@
 {
   "run_id": "sez6_245-530_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/sez6_245-530_1M",
-  "updated": "2026-04-12T13:33:48.148153+00:00",
+  "updated": "2026-04-12T13:35:25.755688+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "sez6_245-530",
@@ -30,13 +30,13 @@
       "display_name": "rosetta",
       "status": "running",
       "job_id": "51412669",
-      "done": 108912,
+      "done": 111456,
       "total": 1000000,
-      "pct": 10.9,
-      "n_tasks": 46,
-      "n_running": 14,
+      "pct": 11.1,
+      "n_tasks": 58,
+      "n_running": 16,
       "wall_seconds": null,
-      "eta_seconds": 19682.0,
+      "eta_seconds": 19961.0,
       "started": "2026-04-12T12:53:06+00:00",
       "ended": null,
       "tasks": [
@@ -154,7 +154,7 @@
         },
         {
           "task_id": 14,
-          "done": 2200,
+          "done": 2291,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc035p",
@@ -162,7 +162,7 @@
         },
         {
           "task_id": 15,
-          "done": 2175,
+          "done": 2290,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc036p",
@@ -306,25 +306,25 @@
         },
         {
           "task_id": 33,
-          "done": 2450,
+          "done": 2500,
           "total": 2500,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc129p",
           "cpus": 36
         },
         {
           "task_id": 34,
-          "done": 2491,
+          "done": 2500,
           "total": 2500,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc130p",
           "cpus": 36
         },
         {
           "task_id": 35,
-          "done": 2450,
+          "done": 2500,
           "total": 2500,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc131p",
           "cpus": 36
         },
@@ -338,33 +338,33 @@
         },
         {
           "task_id": 37,
-          "done": 2440,
+          "done": 2500,
           "total": 2500,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc123p",
           "cpus": 36
         },
         {
           "task_id": 38,
-          "done": 2450,
+          "done": 2500,
           "total": 2500,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc117p",
           "cpus": 36
         },
         {
           "task_id": 39,
-          "done": 2475,
+          "done": 2500,
           "total": 2500,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc118p",
           "cpus": 36
         },
         {
           "task_id": 40,
-          "done": 2441,
+          "done": 2500,
           "total": 2500,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc120p",
           "cpus": 36
         },
@@ -372,29 +372,29 @@
           "task_id": 41,
           "done": 2500,
           "total": 2500,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc116p",
           "cpus": 36
         },
         {
           "task_id": 42,
-          "done": 2440,
+          "done": 2500,
           "total": 2500,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc121p",
           "cpus": 36
         },
         {
           "task_id": 43,
-          "done": 2400,
+          "done": 2500,
           "total": 2500,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc119p",
           "cpus": 36
         },
         {
           "task_id": 44,
-          "done": 0,
+          "done": 175,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc124p",
@@ -402,10 +402,106 @@
         },
         {
           "task_id": 45,
-          "done": 0,
+          "done": 175,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc122p",
+          "cpus": 36
+        },
+        {
+          "task_id": 46,
+          "done": 140,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc126p",
+          "cpus": 36
+        },
+        {
+          "task_id": 47,
+          "done": 140,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc132p",
+          "cpus": 36
+        },
+        {
+          "task_id": 48,
+          "done": 140,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc116p",
+          "cpus": 36
+        },
+        {
+          "task_id": 49,
+          "done": 140,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc130p",
+          "cpus": 36
+        },
+        {
+          "task_id": 50,
+          "done": 140,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc131p",
+          "cpus": 36
+        },
+        {
+          "task_id": 51,
+          "done": 140,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc118p",
+          "cpus": 36
+        },
+        {
+          "task_id": 52,
+          "done": 140,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc129p",
+          "cpus": 36
+        },
+        {
+          "task_id": 53,
+          "done": 140,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc123p",
+          "cpus": 36
+        },
+        {
+          "task_id": 54,
+          "done": 140,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc120p",
+          "cpus": 36
+        },
+        {
+          "task_id": 55,
+          "done": 125,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc117p",
+          "cpus": 36
+        },
+        {
+          "task_id": 56,
+          "done": 75,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc121p",
+          "cpus": 36
+        },
+        {
+          "task_id": 57,
+          "done": 65,
+          "total": 2500,
+          "status": "running",
+          "host": "fsitgl-hpc119p",
           "cpus": 36
         }
       ]
