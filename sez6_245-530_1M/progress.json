@@ -1,7 +1,7 @@
 {
   "run_id": "sez6_245-530_1M",
   "run_root": "/mnt/beegfs/valkov/rfantibody/sez6_245-530_1M",
-  "updated": "2026-04-12T23:36:37.237271+00:00",
+  "updated": "2026-04-12T23:38:39.222272+00:00",
   "config": {
     "total_designs": 1000000,
     "target_pdb": "sez6_245-530",
@@ -20095,13 +20095,13 @@
       "display_name": "deeprank_b",
       "status": "running",
       "job_id": "51414757",
-      "done": 480,
+      "done": 640,
       "total": 2500,
-      "pct": 19.2,
-      "n_tasks": 32,
+      "pct": 25.6,
+      "n_tasks": 40,
       "n_running": 8,
       "wall_seconds": null,
-      "eta_seconds": 2240.0,
+      "eta_seconds": 1896.0,
       "started": "2026-04-12T23:26:47+00:00",
       "ended": null,
       "tasks": [
@@ -20299,6 +20299,70 @@
         },
         {
           "task_id": 24,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc187p",
+          "gpus": 4
+        },
+        {
+          "task_id": 25,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc173p",
+          "gpus": 4
+        },
+        {
+          "task_id": 26,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc178p",
+          "gpus": 4
+        },
+        {
+          "task_id": 27,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc176p",
+          "gpus": 4
+        },
+        {
+          "task_id": 28,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc183p",
+          "gpus": 4
+        },
+        {
+          "task_id": 29,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc174p",
+          "gpus": 4
+        },
+        {
+          "task_id": 30,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc172p",
+          "gpus": 4
+        },
+        {
+          "task_id": 31,
+          "done": 20,
+          "total": 20,
+          "status": "done",
+          "host": "fsitgl-hpc177p",
+          "gpus": 4
+        },
+        {
+          "task_id": 32,
           "done": 0,
           "total": 20,
           "status": "running",
@@ -20306,7 +20370,7 @@
           "gpus": 4
         },
         {
-          "task_id": 25,
+          "task_id": 33,
           "done": 0,
           "total": 20,
           "status": "running",
@@ -20314,15 +20378,7 @@
           "gpus": 4
         },
         {
-          "task_id": 26,
-          "done": 0,
-          "total": 20,
-          "status": "running",
-          "host": "fsitgl-hpc178p",
-          "gpus": 4
-        },
-        {
-          "task_id": 27,
+          "task_id": 34,
           "done": 0,
           "total": 20,
           "status": "running",
@@ -20330,7 +20386,15 @@
           "gpus": 4
         },
         {
-          "task_id": 28,
+          "task_id": 35,
+          "done": 0,
+          "total": 20,
+          "status": "running",
+          "host": "fsitgl-hpc178p",
+          "gpus": 4
+        },
+        {
+          "task_id": 36,
           "done": 0,
           "total": 20,
           "status": "running",
@@ -20338,7 +20402,7 @@
           "gpus": 4
         },
         {
-          "task_id": 29,
+          "task_id": 37,
           "done": 0,
           "total": 20,
           "status": "running",
@@ -20346,19 +20410,19 @@
           "gpus": 4
         },
         {
-          "task_id": 30,
-          "done": 0,
-          "total": 20,
-          "status": "running",
-          "host": "fsitgl-hpc172p",
-          "gpus": 4
-        },
-        {
-          "task_id": 31,
+          "task_id": 38,
           "done": 0,
           "total": 20,
           "status": "running",
           "host": "fsitgl-hpc177p",
+          "gpus": 4
+        },
+        {
+          "task_id": 39,
+          "done": 0,
+          "total": 20,
+          "status": "running",
+          "host": "fsitgl-hpc172p",
           "gpus": 4
         }
       ]
@@ -20397,5 +20461,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 64.9
+  "pipeline_pct": 65.7
 }
