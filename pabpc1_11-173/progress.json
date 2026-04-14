@@ -1,7 +1,7 @@
 {
   "run_id": "pabpc1_11-173",
   "run_root": "/mnt/beegfs/valkov/rfantibody/pabpc1_11-173",
-  "updated": "2026-04-14T11:42:11.956336+00:00",
+  "updated": "2026-04-14T11:43:05.343601+00:00",
   "config": {
     "total_designs": 100000,
     "target_pdb": "pabpc1_11-173",
@@ -2214,21 +2214,21 @@
     {
       "name": "scores",
       "display_name": "scores",
-      "status": "running",
+      "status": "done",
       "job_id": "51422904",
       "done": 0,
       "total": 0,
       "pct": 0.0,
       "n_tasks": 1,
       "n_running": 0,
-      "wall_seconds": 0.0,
+      "wall_seconds": 90,
       "eta_seconds": null,
-      "started": "2026-04-14T11:40:49+00:00",
-      "ended": null,
+      "started": "2026-04-14T11:42:18+00:00",
+      "ended": "2026-04-14T11:42:18+00:00",
       "tasks": [
         {
           "task_id": 0,
-          "status": "running",
+          "status": "done",
           "host": null
         }
       ]
@@ -2236,20 +2236,30 @@
     {
       "name": "epitope",
       "display_name": "epitope",
-      "status": "pending",
-      "job_id": null,
-      "done": 0,
-      "total": 0,
-      "pct": 0.0,
-      "n_tasks": 0,
+      "status": "done",
+      "job_id": "51422905",
+      "done": 8,
+      "total": 8,
+      "pct": 100.0,
+      "n_tasks": 1,
       "n_running": 0,
-      "wall_seconds": null,
+      "wall_seconds": 2,
       "eta_seconds": null,
-      "started": null,
-      "ended": null,
-      "tasks": []
+      "started": "2026-04-14T11:42:55+00:00",
+      "ended": "2026-04-14T11:42:57+00:00",
+      "tasks": [
+        {
+          "task_id": 0,
+          "done": 8,
+          "total": 8,
+          "status": "done",
+          "host": "cn001",
+          "cpus": null
+        }
+      ],
+      "phase": "copy_pdbs"
     }
   ],
-  "pipeline_status": "running",
-  "pipeline_pct": 75.0
+  "pipeline_status": "done",
+  "pipeline_pct": 100.0
 }
