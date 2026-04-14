@@ -1,7 +1,7 @@
 {
   "run_id": "pabpc1_11-173",
   "run_root": "/mnt/beegfs/valkov/rfantibody/pabpc1_11-173",
-  "updated": "2026-04-14T11:29:50.574507+00:00",
+  "updated": "2026-04-14T11:30:45.494389+00:00",
   "config": {
     "total_designs": 100000,
     "target_pdb": "pabpc1_11-173",
@@ -78,13 +78,13 @@
       "display_name": "deeprank_a",
       "status": "running",
       "job_id": "51422901",
-      "done": 99864,
+      "done": 99888,
       "total": 100000,
       "pct": 99.9,
       "n_tasks": 250,
       "n_running": 1,
       "wall_seconds": null,
-      "eta_seconds": 2.0,
+      "eta_seconds": 1.0,
       "started": "2026-04-14T11:09:58+00:00",
       "ended": null,
       "tasks": [
@@ -1274,7 +1274,7 @@
         },
         {
           "task_id": 148,
-          "done": 264,
+          "done": 288,
           "total": 400,
           "status": "running",
           "host": "fsitgl-hpc033p",
