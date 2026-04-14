@@ -1,7 +1,7 @@
 {
   "run_id": "pabpc1_11-173",
   "run_root": "/mnt/beegfs/valkov/rfantibody/pabpc1_11-173",
-  "updated": "2026-04-14T02:18:23.627731+00:00",
+  "updated": "2026-04-14T02:18:58.410977+00:00",
   "config": {
     "total_designs": 100000,
     "target_pdb": "pabpc1_11-173",
@@ -12,18 +12,19 @@
     {
       "name": "rfantibody",
       "display_name": "rfantibody",
-      "status": "pending",
-      "job_id": null,
+      "status": "running",
+      "job_id": "51418520",
       "done": 0,
       "total": 0,
       "pct": 0.0,
-      "n_tasks": 0,
-      "n_running": 0,
+      "n_tasks": 32,
+      "n_running": 32,
       "wall_seconds": null,
       "eta_seconds": null,
       "started": null,
       "ended": null,
-      "tasks": []
+      "tasks": [],
+      "phase": "starting"
     },
     {
       "name": "rosetta",
@@ -138,6 +139,6 @@
       "tasks": []
     }
   ],
-  "pipeline_status": "pending",
+  "pipeline_status": "running",
   "pipeline_pct": 0.0
 }
