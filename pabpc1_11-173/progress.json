@@ -1,7 +1,7 @@
 {
   "run_id": "pabpc1_11-173",
   "run_root": "/mnt/beegfs/valkov/rfantibody/pabpc1_11-173",
-  "updated": "2026-04-14T10:38:36.942453+00:00",
+  "updated": "2026-04-14T10:38:43.840910+00:00",
   "config": {
     "total_designs": 100000,
     "target_pdb": "pabpc1_11-173",
@@ -30,19 +30,19 @@
       "display_name": "rosetta",
       "status": "running",
       "job_id": "51422894",
-      "done": 22621,
+      "done": 22943,
       "total": 100000,
-      "pct": 22.6,
+      "pct": 22.9,
       "n_tasks": 16,
       "n_running": 16,
       "wall_seconds": null,
-      "eta_seconds": 1592.0,
+      "eta_seconds": 1587.0,
       "started": "2026-04-14T10:30:47+00:00",
       "ended": null,
       "tasks": [
         {
           "task_id": 0,
-          "done": 1650,
+          "done": 1675,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc131p",
@@ -58,7 +58,7 @@
         },
         {
           "task_id": 2,
-          "done": 1700,
+          "done": 1750,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc166p",
@@ -106,7 +106,7 @@
         },
         {
           "task_id": 8,
-          "done": 1800,
+          "done": 1871,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc037p",
@@ -114,7 +114,7 @@
         },
         {
           "task_id": 9,
-          "done": 1775,
+          "done": 1847,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc038p",
@@ -130,7 +130,7 @@
         },
         {
           "task_id": 11,
-          "done": 1775,
+          "done": 1850,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc040p",
@@ -138,7 +138,7 @@
         },
         {
           "task_id": 12,
-          "done": 1771,
+          "done": 1800,
           "total": 2500,
           "status": "running",
           "host": "fsitgl-hpc041p",
@@ -268,5 +268,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 15.3
+  "pipeline_pct": 15.4
 }
