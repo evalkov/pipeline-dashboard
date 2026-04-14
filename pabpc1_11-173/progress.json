@@ -1,7 +1,7 @@
 {
   "run_id": "pabpc1_11-173",
   "run_root": "/mnt/beegfs/valkov/rfantibody/pabpc1_11-173",
-  "updated": "2026-04-14T11:38:49.648987+00:00",
+  "updated": "2026-04-14T11:39:43.531808+00:00",
   "config": {
     "total_designs": 100000,
     "target_pdb": "pabpc1_11-173",
@@ -2095,13 +2095,13 @@
       "display_name": "deeprank_b",
       "status": "running",
       "job_id": "51422902",
-      "done": 160,
+      "done": 202,
       "total": 250,
-      "pct": 64.0,
+      "pct": 80.8,
       "n_tasks": 13,
-      "n_running": 5,
+      "n_running": 3,
       "wall_seconds": null,
-      "eta_seconds": 77.0,
+      "eta_seconds": 45.0,
       "started": "2026-04-14T11:36:27+00:00",
       "ended": null,
       "tasks": [
@@ -2171,15 +2171,15 @@
         },
         {
           "task_id": 8,
-          "done": 0,
+          "done": 20,
           "total": 20,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc178p",
           "gpus": 4
         },
         {
           "task_id": 9,
-          "done": 0,
+          "done": 12,
           "total": 20,
           "status": "running",
           "host": "fsitgl-hpc177p",
@@ -2203,9 +2203,9 @@
         },
         {
           "task_id": 12,
-          "done": 0,
+          "done": 10,
           "total": 10,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc173p",
           "gpus": 4
         }
@@ -2245,5 +2245,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 70.5
+  "pipeline_pct": 72.6
 }
