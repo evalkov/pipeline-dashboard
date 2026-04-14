@@ -1,7 +1,7 @@
 {
   "run_id": "pabpc1_11-173",
   "run_root": "/mnt/beegfs/valkov/rfantibody/pabpc1_11-173",
-  "updated": "2026-04-14T11:39:57.199180+00:00",
+  "updated": "2026-04-14T11:40:51.014276+00:00",
   "config": {
     "total_designs": 100000,
     "target_pdb": "pabpc1_11-173",
@@ -2093,17 +2093,17 @@
     {
       "name": "deeprank_b",
       "display_name": "deeprank_b",
-      "status": "running",
+      "status": "done",
       "job_id": "51422902",
-      "done": 230,
+      "done": 250,
       "total": 250,
-      "pct": 92.0,
+      "pct": 100.0,
       "n_tasks": 13,
-      "n_running": 1,
-      "wall_seconds": null,
-      "eta_seconds": 18.0,
+      "n_running": 0,
+      "wall_seconds": 228,
+      "eta_seconds": null,
       "started": "2026-04-14T11:36:27+00:00",
-      "ended": null,
+      "ended": "2026-04-14T11:40:15+00:00",
       "tasks": [
         {
           "task_id": 0,
@@ -2195,9 +2195,9 @@
         },
         {
           "task_id": 11,
-          "done": 0,
+          "done": 20,
           "total": 20,
-          "status": "running",
+          "status": "done",
           "host": "fsitgl-hpc179p",
           "gpus": 4
         },
@@ -2214,18 +2214,24 @@
     {
       "name": "scores",
       "display_name": "scores",
-      "status": "pending",
-      "job_id": null,
+      "status": "running",
+      "job_id": "51422904",
       "done": 0,
       "total": 0,
       "pct": 0.0,
-      "n_tasks": 0,
+      "n_tasks": 1,
       "n_running": 0,
-      "wall_seconds": null,
+      "wall_seconds": 0.0,
       "eta_seconds": null,
-      "started": null,
+      "started": "2026-04-14T11:40:49+00:00",
       "ended": null,
-      "tasks": []
+      "tasks": [
+        {
+          "task_id": 0,
+          "status": "running",
+          "host": null
+        }
+      ]
     },
     {
       "name": "epitope",
@@ -2245,5 +2251,5 @@
     }
   ],
   "pipeline_status": "running",
-  "pipeline_pct": 74.0
+  "pipeline_pct": 75.0
 }
